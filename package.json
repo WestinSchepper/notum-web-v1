@@ -6,8 +6,13 @@
     "react-scripts": "0.6.1"
   },
   "dependencies": {
+    "humps": "^1.1.0",
+    "moment": "^2.15.1",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-router": "^2.8.1",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
