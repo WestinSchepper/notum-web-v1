@@ -1,24 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { render } from 'react-dom'
+import { browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
-import App from './containers/App'
-import Landing from './containers/Landing'
-import ProjectContainer from './containers/Project'
-import MemberContainer from './containers/Member'
-import StandupContainer from './containers/Standup'
+import configureStore from './stores/store'
+import Root from './root'
 
-import NotFound from './components/not-found'
+const store = configureStore({})
+const history = syncHistoryWithStore(browserHistory, store)
 
-ReactDOM.render((
-  <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={Landing} />
-      <Route path='projects/:id' component={ProjectContainer} />
-      <Route path='members/:id' component={MemberContainer} />
-      <Route path='standups/:id' component={StandupContainer} />
-      <Route path='*' component={NotFound} />
-    </Route>
-  </Router>
-  ), document.getElementById('root')
+render(
+  <Root {...{ store, history }} />,
+  document.getElementById('root')
 )
