@@ -1,26 +1,41 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
 import Standups from '../components/standups-list'
 import API from '../network/API'
 
+import { loadMember } from '../actions/members'
+
+const mapStateToProps = (state, ownProps) => {
+  let member = state.members[ownProps.params.id] || {}
+
+  return {
+    member
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    loadData: () => {
+      dispatch(loadMember(ownProps.params.id))
+    }
+  }
+}
+
 class MemberContainer extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
 
     this.state = {
-      member: {},
       projects: [],
       standups: []
     }
   }
 
   componentWillMount () {
-    new API({uri: `/members/${this.props.params.id}`}).GET().then((member) => {
-      this.setState({
-        member
-      })
-    })
+    this.props.loadData()
 
     new API({uri: `/members/${this.props.params.id}/projects`}).GET().then((projects) => {
       this.setState({
@@ -38,7 +53,7 @@ class MemberContainer extends React.Component {
   render () {
     return (
       <div>
-        <Member {...this.state.member}/>
+        <Member {...this.props.member}/>
         <h3>Projects</h3>
         <Projects projects={this.state.projects}/>
         <h3>Standups</h3>
@@ -48,4 +63,7 @@ class MemberContainer extends React.Component {
   }
 }
 
-export default MemberContainer
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MemberContainer)

@@ -30,3 +30,23 @@ export function* loadRemoteMembers () {
 export function* watchLoadRemoteMembers () {
   yield takeLatest(actions.loadMembers().type, loadRemoteMembers)
 }
+
+function requestMember (id) {
+  return axios.get(`http://localhost:3333/members/${id}`)
+    .then(response => ({ member: response.data }))
+    .catch(error => ({ error }))
+}
+
+export function* loadRemoteMember (action) {
+  const { member, error } = yield call(requestMember, action.id)
+
+  if (member) {
+    yield put(actions.loadMemberSuccess(member))
+  } else {
+    yield put(actions.loadMemberError(error))
+  }
+}
+
+export function* watchLoadRemoteMember () {
+  yield takeLatest(actions.loadMember().type, loadRemoteMember)
+}

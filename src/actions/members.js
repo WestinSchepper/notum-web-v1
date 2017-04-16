@@ -21,3 +21,28 @@ export function loadMembersError (error) {
     error
   }
 }
+
+export const LOAD_MEMBER = 'LOAD_MEMBER'
+export const LOAD_MEMBER_SUCCEEDED = 'LOAD_MEMBER_SUCCEEDED'
+export const LOAD_MEMBER_FAILED = 'LOAD_MEMBER_FAILED'
+
+export function loadMember (id) {
+  return {
+    type: LOAD_MEMBER,
+    id
+  }
+}
+
+export function loadMemberSuccess (member) {
+  return {
+    type: LOAD_MEMBER_SUCCEEDED,
+    member
+  }
+}
+
+export function loadMemberError (error) {
+  return {
+    type: LOAD_MEMBER_FAILED,
+    error
+  }
+}

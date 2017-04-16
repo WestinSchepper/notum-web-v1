@@ -1,9 +1,10 @@
 import { watchLoadRemoteProjects } from './projects'
-import { watchLoadRemoteMembers } from './members'
+import { watchLoadRemoteMembers, watchLoadRemoteMember } from './members'
 
 export default function* rootSaga () {
   yield [
     watchLoadRemoteProjects(),
-    watchLoadRemoteMembers()
+    watchLoadRemoteMembers(),
+    watchLoadRemoteMember()
   ]
 }
