@@ -7,7 +7,7 @@ import configureStore from './stores/store'
 import Root from './root'
 
 const store = configureStore({
-  projects: []
+  projects: {}
 })
 const history = syncHistoryWithStore(browserHistory, store)
 

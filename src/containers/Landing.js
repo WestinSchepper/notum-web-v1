@@ -1,14 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import values from 'lodash/values'
+
 import Members from '../components/members-list'
 import Projects from '../components/projects-list'
 import API from '../network/API'
 
-import { connect } from 'react-redux'
 import { loadProjects } from '../actions/projects'
 
 const mapStateToProps = (state, ownProps) => {
+  let projects = values(state.projects) || []
+
   return {
-    projects: state.projects
+    projects
   }
 }
 
@@ -44,7 +48,7 @@ class Landing extends React.Component {
       <div>
         <div className='project-list'>
           <h2>Projects</h2>
-          <Projects projects={this.props.projects || []} />
+          <Projects projects={this.props.projects} />
         </div>
         <div className='member-list'>
           <h2>Members</h2>
