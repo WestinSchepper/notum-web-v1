@@ -1,8 +1,3 @@
-export const ADD_PROJECTS = 'ADD_PROJECTS'
-
-export function addProjects (projects) {
-  return {
-    type: ADD_PROJECTS,
-    projects
-  }
-}
+export const FETCH_PROJECTS = 'FETCH_PROJECTS'
+export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS'
+export const FETCH_PROJECTS_FAIL = 'FETCH_PROJECTS_FAIL'

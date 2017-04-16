@@ -4,16 +4,18 @@ import Projects from '../components/projects-list'
 import API from '../network/API'
 
 import { connect } from 'react-redux'
-import { addProjects } from '../actions/projects'
+import { FETCH_PROJECTS } from '../actions/projects'
 
 const mapStateToProps = (state, ownProps) => {
-  return {}
+  return {
+    projects: state.projects
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    importProjects: (projects) => {
-      dispatch(addProjects(projects))
+    fetchProjects: () => {
+      dispatch({type: FETCH_PROJECTS})
     }
   }
 }
@@ -23,8 +25,7 @@ class Landing extends React.Component {
     super()
 
     this.state = {
-      members: [],
-      projects: []
+      members: []
     }
   }
 
@@ -35,14 +36,7 @@ class Landing extends React.Component {
       })
     })
 
-    new API({uri: '/projects'}).GET().then((projects) => {
-      this.setState({
-        projects
-      })
-
-      this.props.importProjects(projects)
-
-    })
+    this.props.fetchProjects()
   }
 
   render () {
@@ -50,7 +44,7 @@ class Landing extends React.Component {
       <div>
         <div className='project-list'>
           <h2>Projects</h2>
-          <Projects projects={this.state.projects} />
+          <Projects projects={this.props.projects || []} />
         </div>
         <div className='member-list'>
           <h2>Members</h2>
