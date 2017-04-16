@@ -21,3 +21,28 @@ export function loadProjectsError (error) {
     error
   }
 }
+
+export const LOAD_PROJECT = 'LOAD_PROJECT'
+export const LOAD_PROJECT_SUCCEEDED = 'LOAD_PROJECT_SUCCEEDED'
+export const LOAD_PROJECT_FAILED = 'LOAD_PROJECT_FAILED'
+
+export function loadProject (id) {
+  return {
+    type: LOAD_PROJECT,
+    id
+  }
+}
+
+export function loadProjectSuccess (project) {
+  return {
+    type: LOAD_PROJECT_SUCCEEDED,
+    project
+  }
+}
+
+export function loadProjectError (error) {
+  return {
+    type: LOAD_PROJECT_FAILED,
+    error
+  }
+}

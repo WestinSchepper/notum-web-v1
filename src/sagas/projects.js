@@ -30,3 +30,23 @@ export function* loadRemoteProjects () {
 export function* watchLoadRemoteProjects () {
   yield takeLatest(actions.loadProjects().type, loadRemoteProjects)
 }
+
+function requestProject (id) {
+  return axios.get(`http://localhost:3333/projects/${id}`)
+    .then(response => ({ project: response.data }))
+    .catch(error => ({ error }))
+}
+
+export function* loadRemoteProject (action) {
+  const { project, error } = yield call(requestProject, action.id)
+
+  if (project) {
+    yield put(actions.loadProjectSuccess(project))
+  } else {
+    yield put(actions.loadProjectError(error))
+  }
+}
+
+export function* watchLoadRemoteProject () {
+  yield takeLatest(actions.loadProject().type, loadRemoteProject)
+}

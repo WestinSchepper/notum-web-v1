@@ -7,6 +7,12 @@ export default function (state = {}, action) {
         ...state,
         ...action.projects
       }
+
+    case actions.loadProjectSuccess().type:
+      return {
+        ...state,
+        [action.project.id]: action.project
+      }
     default:
       return state
   }
