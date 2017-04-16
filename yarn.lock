@@ -4352,6 +4352,15 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react:
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.7"
+
 react-dev-utils@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.2.1.tgz#c017d6f530502b28b735dbac3841a7b8665838f5"
@@ -4364,7 +4373,7 @@ react-dev-utils@^0.2.1:
     sockjs-client "1.0.3"
     strip-ansi "3.0.1"
 
-react-dom@^15.3.2:
+react-dom:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
   dependencies:
@@ -4448,15 +4457,6 @@ react-scripts@0.6.1:
     whatwg-fetch "1.0.0"
   optionalDependencies:
     fsevents "1.0.14"
-
-react@^15.3.2:
-  version "15.5.4"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
-  dependencies:
-    fbjs "^0.8.9"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.7"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
