@@ -9,12 +9,6 @@ export default function (state = {}, action) {
       }
 
     case actions.loadMemberSuccess().type:
-    console.log({
-      ...state,
-      [action.member.id]: action.member
-    });
-    console.log(action);
-
       return {
         ...state,
         [action.member.id]: action.member
