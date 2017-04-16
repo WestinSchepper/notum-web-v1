@@ -1,8 +1,8 @@
-export const ADD_PROJECT = 'ADD_PROJECT'
+export const ADD_PROJECTS = 'ADD_PROJECTS'
 
-export function addProject (project) {
+export function addProjects (projects) {
   return {
-    type: ADD_PROJECT,
-    project
+    type: ADD_PROJECTS,
+    projects
   }
 }

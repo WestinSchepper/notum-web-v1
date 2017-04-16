@@ -3,6 +3,21 @@ import Members from '../components/members-list'
 import Projects from '../components/projects-list'
 import API from '../network/API'
 
+import { connect } from 'react-redux'
+import { addProjects } from '../actions/projects'
+
+const mapStateToProps = (state, ownProps) => {
+  return {}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    importProjects: (projects) => {
+      dispatch(addProjects(projects))
+    }
+  }
+}
+
 class Landing extends React.Component {
   constructor () {
     super()
@@ -24,6 +39,9 @@ class Landing extends React.Component {
       this.setState({
         projects
       })
+
+      this.props.importProjects(projects)
+
     })
   }
 
@@ -43,4 +61,7 @@ class Landing extends React.Component {
   }
 }
 
-export default Landing
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Landing)

@@ -6,7 +6,9 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './stores/store'
 import Root from './root'
 
-const store = configureStore({})
+const store = configureStore({
+  projects: []
+})
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(

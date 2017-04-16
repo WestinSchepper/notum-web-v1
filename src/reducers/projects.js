@@ -1,11 +1,13 @@
 import {
-  ADD_PROJECT
+  ADD_PROJECTS
 } from '../actions/projects'
 
 export default function (state = {}, action) {
   switch (action.type) {
-    case ADD_PROJECT:
-      return state
+    case ADD_PROJECTS:
+      return [
+        ...action.projects
+      ]
     default:
       return state
   }
