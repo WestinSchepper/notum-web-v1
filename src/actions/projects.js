@@ -1,3 +1,23 @@
-export const FETCH_PROJECTS = 'FETCH_PROJECTS'
-export const FETCH_PROJECTS_SUCCESS = 'FETCH_PROJECTS_SUCCESS'
-export const FETCH_PROJECTS_FAIL = 'FETCH_PROJECTS_FAIL'
+export const LOAD_PROJECTS = 'LOAD_PROJECTS'
+export const LOAD_PROJECTS_SUCCEEDED = 'LOAD_PROJECTS_SUCCEEDED'
+export const LOAD_PROJECTS_FAILED = 'LOAD_PROJECTS_FAILED'
+
+export function loadProjects () {
+  return {
+    type: LOAD_PROJECTS
+  }
+}
+
+export function loadProjectsSuccess (projects) {
+  return {
+    type: LOAD_PROJECTS_SUCCEEDED,
+    projects
+  }
+}
+
+export function loadProjectsError (error) {
+  return {
+    type: LOAD_PROJECTS_FAILED,
+    error
+  }
+}

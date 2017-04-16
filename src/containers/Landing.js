@@ -4,7 +4,7 @@ import Projects from '../components/projects-list'
 import API from '../network/API'
 
 import { connect } from 'react-redux'
-import { FETCH_PROJECTS } from '../actions/projects'
+import { loadProjects } from '../actions/projects'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -14,8 +14,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchProjects: () => {
-      dispatch({type: FETCH_PROJECTS})
+    loadProjects: () => {
+      dispatch(loadProjects())
     }
   }
 }
@@ -36,7 +36,7 @@ class Landing extends React.Component {
       })
     })
 
-    this.props.fetchProjects()
+    this.props.loadProjects()
   }
 
   render () {

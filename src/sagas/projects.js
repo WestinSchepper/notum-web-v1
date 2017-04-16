@@ -1,24 +1,24 @@
-import { takeLatest } from 'redux-saga'
-import { put, call } from 'redux-saga/effects'
+import { put, call, takeLatest } from 'redux-saga/effects'
 import axios from 'axios'
 
-import {
-  FETCH_PROJECTS,
-  FETCH_PROJECTS_SUCCESS,
-  FETCH_PROJECTS_FAIL
-} from '../actions/projects'
+import * as actions from '../actions/projects'
 
-export function* fetchProjects () {
-  try {
-    const response = yield call(axios.get, 'http://localhost:3333/projects')
-    yield put({ type: FETCH_PROJECTS_SUCCESS, projects: response.data })
+function requestProjects () {
+  return axios.get('http://localhost:3333/projects')
+    .then(response => ({ response }))
+    .catch(error => ({ error }))
+}
 
-  } catch (error) {
-    yield put({ type: FETCH_PROJECTS_FAIL })
+export function* loadRemoteProjects () {
+  const { response, error } = yield call(requestProjects)
 
+  if (response) {
+    yield put(actions.loadProjectsSuccess(response.data))
+  } else {
+    yield put(actions.loadProjectsError(error))
   }
 }
 
-export function* watchFetchProjects () {
-  yield takeLatest(FETCH_PROJECTS, fetchProjects)
+export function* watchLoadRemoteProjects () {
+  yield takeLatest(actions.loadProjects().type, loadRemoteProjects)
 }

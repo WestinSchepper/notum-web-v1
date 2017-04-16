@@ -1,7 +1,7 @@
-import { watchFetchProjects } from './projects'
+import { watchLoadRemoteProjects } from './projects'
 
-export default function* rootSaga() {
+export default function* rootSaga () {
   yield [
-    watchFetchProjects()
+    watchLoadRemoteProjects()
   ]
 }
