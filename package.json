@@ -8,6 +8,7 @@
   "dependencies": {
     "humps": "^1.1.0",
     "moment": "^2.15.1",
+    "normalizr": "^3.2.2",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",

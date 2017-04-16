@@ -19,19 +19,9 @@ class ProjectContainer extends React.Component {
   componentWillMount () {
     new API({uri: `/projects/${this.props.params.id}`}).GET().then((project) => {
       this.setState({
-        project
-      })
-    })
-
-    new API({uri: `/projects/${this.props.params.id}/members`}).GET().then((members) => {
-      this.setState({
-        members
-      })
-    })
-
-    new API({uri: `/projects/${this.props.params.id}/standups`}).GET().then((standups) => {
-      this.setState({
-        standups
+        project: project,
+        members: project.members,
+        standups: project.standups
       })
     })
   }
