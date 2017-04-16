@@ -4,43 +4,32 @@ import values from 'lodash/values'
 
 import Members from '../components/members-list'
 import Projects from '../components/projects-list'
-import API from '../network/API'
 
 import { loadProjects } from '../actions/projects'
+import { loadMembers } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
   let projects = values(state.projects) || []
+  let members = values(state.members) || []
 
   return {
-    projects
+    projects,
+    members
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadProjects: () => {
+    loadData: () => {
       dispatch(loadProjects())
+      dispatch(loadMembers())
     }
   }
 }
 
 class Landing extends React.Component {
-  constructor () {
-    super()
-
-    this.state = {
-      members: []
-    }
-  }
-
   componentWillMount () {
-    new API({uri: '/members'}).GET().then((members) => {
-      this.setState({
-        members
-      })
-    })
-
-    this.props.loadProjects()
+    this.props.loadData()
   }
 
   render () {
@@ -52,7 +41,7 @@ class Landing extends React.Component {
         </div>
         <div className='member-list'>
           <h2>Members</h2>
-          <Members members={this.state.members} />
+          <Members members={this.props.members} />
         </div>
       </div>
     )
