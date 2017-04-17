@@ -1,31 +1,50 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import Standup from '../components/standup-detail'
-import API from '../network/API'
+import { loadStandup } from '../actions/standups'
 
-class StandupContainer extends React.Component {
-  constructor (props) {
-    super(props)
+const mapStateToProps = (state, ownProps) => {
+  let standup = state.standups[ownProps.params.id] || {}
+  let project = state.projects[standup.project] || {}
+  let member = state.members[standup.member] || {}
 
-    this.state = {
-      standup: []
+  console.log(standup);
+
+  return {
+    standup,
+    project,
+    member
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    loadData: () => {
+      dispatch(loadStandup(ownProps.params.id))
     }
   }
+}
 
+class StandupContainer extends React.Component {
   componentWillMount () {
-    new API({uri: `/standups/${this.props.params.id}`}).GET().then((standup) => {
-      this.setState({
-        standup
-      })
-    })
+    this.props.loadData()
   }
 
   render () {
     return (
       <div>
-        <Standup {...this.state.standup}/>
+        <Standup
+          standup={this.props.standup}
+          project={this.props.project}
+          member={this.props.member}
+        />
       </div>
     )
   }
 }
 
-export default StandupContainer
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StandupContainer)
