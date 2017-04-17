@@ -15,8 +15,8 @@ projectSchema.define({
 })
 
 memberSchema.define({
-  projects: projectSchema,
-  standups: standupSchema
+  projects: projectListSchema,
+  standups: standupListSchema
 })
 
 standupSchema.define({
