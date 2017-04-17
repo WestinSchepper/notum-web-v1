@@ -3,7 +3,7 @@ import { normalize } from 'normalizr'
 import axios from 'axios'
 
 import * as actions from '../actions/projects'
-import { projectListSchema } from '../schemas'
+import { projectListSchema, projectSchema } from '../schemas'
 
 function requestProjects () {
   return axios.get('http://localhost:3333/projects')
@@ -33,7 +33,13 @@ export function* watchLoadRemoteProjects () {
 
 function requestProject (id) {
   return axios.get(`http://localhost:3333/projects/${id}`)
-    .then(response => ({ project: response.data }))
+    .then(response => {
+      const serialized = normalize(response.data, projectSchema)
+
+      return {
+        project: serialized.entities.projects
+      }
+    })
     .catch(error => ({ error }))
 }
 

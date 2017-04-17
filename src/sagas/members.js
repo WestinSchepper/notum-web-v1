@@ -3,7 +3,7 @@ import { normalize } from 'normalizr'
 import axios from 'axios'
 
 import * as actions from '../actions/members'
-import { memberListSchema } from '../schemas'
+import { memberListSchema, memberSchema } from '../schemas'
 
 function requestMembers () {
   return axios.get('http://localhost:3333/members')
@@ -33,7 +33,13 @@ export function* watchLoadRemoteMembers () {
 
 function requestMember (id) {
   return axios.get(`http://localhost:3333/members/${id}`)
-    .then(response => ({ member: response.data }))
+    .then(response => {
+      const serialized = normalize(response.data, memberSchema)
+
+      return {
+        member: serialized.entities.members
+      }
+    })
     .catch(error => ({ error }))
 }
 

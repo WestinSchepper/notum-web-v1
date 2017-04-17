@@ -11,7 +11,7 @@ export default function (state = {}, action) {
     case actions.loadProjectSuccess().type:
       return {
         ...state,
-        [action.project.id]: action.project
+        ...action.project
       }
     default:
       return state

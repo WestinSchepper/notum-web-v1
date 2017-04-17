@@ -11,7 +11,7 @@ export default function (state = {}, action) {
     case actions.loadMemberSuccess().type:
       return {
         ...state,
-        [action.member.id]: action.member
+        ...action.member
       }
 
     default:
