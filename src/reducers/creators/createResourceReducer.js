@@ -1,8 +1,6 @@
 export default function createResourceReducer (resourceName) {
   const resourceActionType = resourceName.toUpperCase()
 
-  console.log(resourceName);
-
   return function resourceReducer (state = {}, action) {
     switch (action.type) {
       case `LOAD_${resourceActionType}S_SUCCEEDED`:

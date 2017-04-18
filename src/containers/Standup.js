@@ -9,8 +9,6 @@ const mapStateToProps = (state, ownProps) => {
   let project = state.projects[standup.project] || {}
   let member = state.members[standup.member] || {}
 
-  console.log(standup);
-
   return {
     standup,
     project,
