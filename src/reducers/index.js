@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import createResourceReducer from './creators/createResourceReducer'
 
-import projects from './projects'
-import members from './members'
 import standups from './standups'
 
 export default combineReducers({
-  projects,
-  members,
+  projects: createResourceReducer('project'),
+  members: createResourceReducer('member'),
   standups,
   routing: routerReducer
 })
