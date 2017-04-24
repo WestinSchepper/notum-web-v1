@@ -6,7 +6,6 @@ import values from 'lodash/values'
 import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
 import Standups from '../components/standups-list'
-import API from '../network/API'
 
 import { loadMember } from '../actions/members'
 
@@ -38,29 +37,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 class MemberContainer extends React.Component {
-  constructor () {
-    super()
-
-    this.state = {
-      projects: [],
-      standups: []
-    }
-  }
-
   componentWillMount () {
     this.props.loadData()
-
-    new API({uri: `/members/${this.props.params.id}/projects`}).GET().then((projects) => {
-      this.setState({
-        projects
-      })
-    })
-
-    new API({uri: `/members/${this.props.params.id}/standups`}).GET().then((standups) => {
-      this.setState({
-        standups
-      })
-    })
   }
 
   render () {

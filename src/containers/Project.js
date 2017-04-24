@@ -7,7 +7,6 @@ import values from 'lodash/values'
 import Project from '../components/project-detail'
 import Members from '../components/members-list'
 import Standups from '../components/standups-list'
-import API from '../network/API'
 
 import { loadProject } from '../actions/projects'
 
@@ -37,24 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 class ProjectContainer extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      members: [],
-      standups: []
-    }
-  }
-
   componentWillMount () {
     this.props.loadData()
-
-    new API({uri: `/projects/${this.props.params.id}`}).GET().then((project) => {
-      this.setState({
-        members: project.members,
-        standups: project.standups
-      })
-    })
   }
 
   render () {
