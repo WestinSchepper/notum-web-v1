@@ -1,4 +1,4 @@
-import { resourcesActionCreator, resourceActionCreator } from './factories/resourceActionCreator'
+import { resourceActionCreator } from './factories/resourceActionCreator'
 
 const standup = resourceActionCreator('standup')
 
