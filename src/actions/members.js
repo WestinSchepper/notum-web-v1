@@ -1,48 +1,14 @@
-export const LOAD_MEMBERS = 'LOAD_MEMBERS'
-export const LOAD_MEMBERS_SUCCEEDED = 'LOAD_MEMBERS_SUCCEEDED'
-export const LOAD_MEMBERS_FAILED = 'LOAD_MEMBERS_FAILED'
+import { resourcesActionCreator, resourceActionCreator } from './factories/resourceActionCreator'
 
-export function loadMembers () {
-  return {
-    type: LOAD_MEMBERS
-  }
+const members = resourcesActionCreator('members')
+const member = resourceActionCreator('member')
+
+export const membersActions = {
+  ...members.constants,
+  ...members.actions
 }
 
-export function loadMembersSuccess (entities) {
-  return {
-    type: LOAD_MEMBERS_SUCCEEDED,
-    payload: entities
-  }
-}
-
-export function loadMembersError (error) {
-  return {
-    type: LOAD_MEMBERS_FAILED,
-    error
-  }
-}
-
-export const LOAD_MEMBER = 'LOAD_MEMBER'
-export const LOAD_MEMBER_SUCCEEDED = 'LOAD_MEMBER_SUCCEEDED'
-export const LOAD_MEMBER_FAILED = 'LOAD_MEMBER_FAILED'
-
-export function loadMember (id) {
-  return {
-    type: LOAD_MEMBER,
-    id
-  }
-}
-
-export function loadMemberSuccess (entities) {
-  return {
-    type: LOAD_MEMBER_SUCCEEDED,
-    payload: entities
-  }
-}
-
-export function loadMemberError (error) {
-  return {
-    type: LOAD_MEMBER_FAILED,
-    error
-  }
+export const memberActions = {
+  ...member.constants,
+  ...member.actions
 }

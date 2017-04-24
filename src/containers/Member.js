@@ -7,7 +7,7 @@ import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
 import Standups from '../components/standups-list'
 
-import { loadMember } from '../actions/members'
+import { memberActions } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
   let member = state.entities.members[ownProps.params.id] || {}
@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
-      dispatch(loadMember(ownProps.params.id))
+      dispatch(memberActions.loadMember(ownProps.params.id))
     }
   }
 }

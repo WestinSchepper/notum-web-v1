@@ -8,7 +8,7 @@ import Project from '../components/project-detail'
 import Members from '../components/members-list'
 import Standups from '../components/standups-list'
 
-import { loadProject } from '../actions/projects'
+import { projectActions } from '../actions/projects'
 
 const mapStateToProps = (state, ownProps) => {
   let project = state.entities.projects[ownProps.params.id] || {}
@@ -30,7 +30,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
-      dispatch(loadProject(ownProps.params.id))
+      dispatch(projectActions.loadProject(ownProps.params.id))
     }
   }
 }

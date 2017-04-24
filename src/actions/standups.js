@@ -1,24 +1,8 @@
-export const LOAD_STANDUP = 'LOAD_STANDUP'
-export const LOAD_STANDUP_SUCCEEDED = 'LOAD_STANDUP_SUCCEEDED'
-export const LOAD_STANDUP_FAILED = 'LOAD_STANDUP_FAILED'
+import { resourcesActionCreator, resourceActionCreator } from './factories/resourceActionCreator'
 
-export function loadStandup (id) {
-  return {
-    type: LOAD_STANDUP,
-    id
-  }
-}
+const standup = resourceActionCreator('standup')
 
-export function loadStandupSuccess (entities) {
-  return {
-    type: LOAD_STANDUP_SUCCEEDED,
-    payload: entities
-  }
-}
-
-export function loadStandupError (error) {
-  return {
-    type: LOAD_STANDUP_FAILED,
-    error
-  }
+export const standupActions = {
+  ...standup.constants,
+  ...standup.actions
 }

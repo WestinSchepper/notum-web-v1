@@ -2,7 +2,7 @@ import { put, call, takeLatest } from 'redux-saga/effects'
 import { normalize } from 'normalizr'
 import axios from 'axios'
 
-import * as actions from '../actions/members'
+import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
 
 function requestMembers () {
@@ -21,14 +21,14 @@ export function* loadRemoteMembers () {
   const { entities, error } = yield call(requestMembers)
 
   if (entities) {
-    yield put(actions.loadMembersSuccess(entities))
+    yield put(membersActions.loadMembersSuccess(entities))
   } else {
-    yield put(actions.loadMembersError(error))
+    yield put(membersActions.loadMembersError(error))
   }
 }
 
 export function* watchLoadRemoteMembers () {
-  yield takeLatest(actions.loadMembers().type, loadRemoteMembers)
+  yield takeLatest(membersActions.LOAD_MEMBERS, loadRemoteMembers)
 }
 
 function requestMember (id) {
@@ -47,12 +47,12 @@ export function* loadRemoteMember (action) {
   const { entities, error } = yield call(requestMember, action.id)
 
   if (entities) {
-    yield put(actions.loadMemberSuccess(entities))
+    yield put(memberActions.loadMemberSuccess(entities))
   } else {
-    yield put(actions.loadMemberError(error))
+    yield put(memberActions.loadMemberError(error))
   }
 }
 
 export function* watchLoadRemoteMember () {
-  yield takeLatest(actions.loadMember().type, loadRemoteMember)
+  yield takeLatest(memberActions.LOAD_MEMBER, loadRemoteMember)
 }

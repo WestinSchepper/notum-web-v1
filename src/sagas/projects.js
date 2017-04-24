@@ -2,7 +2,7 @@ import { put, call, takeLatest } from 'redux-saga/effects'
 import { normalize } from 'normalizr'
 import axios from 'axios'
 
-import * as actions from '../actions/projects'
+import { projectsActions, projectActions } from '../actions/projects'
 import { projectListSchema, projectSchema } from '../schemas'
 
 function requestProjects () {
@@ -21,14 +21,14 @@ export function* loadRemoteProjects () {
   const { entities, error } = yield call(requestProjects)
 
   if (entities) {
-    yield put(actions.loadProjectsSuccess(entities))
+    yield put(projectsActions.loadProjectsSuccess(entities))
   } else {
-    yield put(actions.loadProjectsError(error))
+    yield put(projectsActions.loadProjectsError(error))
   }
 }
 
 export function* watchLoadRemoteProjects () {
-  yield takeLatest(actions.loadProjects().type, loadRemoteProjects)
+  yield takeLatest(projectsActions.LOAD_PROJECTS, loadRemoteProjects)
 }
 
 function requestProject (id) {
@@ -47,12 +47,12 @@ export function* loadRemoteProject (action) {
   const { entities, error } = yield call(requestProject, action.id)
 
   if (entities) {
-    yield put(actions.loadProjectSuccess(entities))
+    yield put(projectActions.loadProjectSuccess(entities))
   } else {
-    yield put(actions.loadProjectError(error))
+    yield put(projectActions.loadProjectError(error))
   }
 }
 
 export function* watchLoadRemoteProject () {
-  yield takeLatest(actions.loadProject().type, loadRemoteProject)
+  yield takeLatest(projectActions.LOAD_PROJECT, loadRemoteProject)
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Standup from '../components/standup-detail'
-import { loadStandup } from '../actions/standups'
+import { standupActions } from '../actions/standups'
 
 const mapStateToProps = (state, ownProps) => {
   let standup = state.entities.standups[ownProps.params.id] || {}
@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
-      dispatch(loadStandup(ownProps.params.id))
+      dispatch(standupActions.loadStandup(ownProps.params.id))
     }
   }
 }

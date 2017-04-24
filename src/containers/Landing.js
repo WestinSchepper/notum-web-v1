@@ -5,8 +5,8 @@ import values from 'lodash/values'
 import Members from '../components/members-list'
 import Projects from '../components/projects-list'
 
-import { loadProjects } from '../actions/projects'
-import { loadMembers } from '../actions/members'
+import { projectsActions } from '../actions/projects'
+import { membersActions } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
   let projects = values(state.entities.projects) || []
@@ -21,8 +21,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
-      dispatch(loadProjects())
-      dispatch(loadMembers())
+      dispatch(projectsActions.loadProjects())
+      dispatch(membersActions.loadMembers())
     }
   }
 }
