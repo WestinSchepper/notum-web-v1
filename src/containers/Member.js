@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import pick from 'lodash/pick'
+import values from 'lodash/values'
 
 import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
@@ -9,7 +11,18 @@ import API from '../network/API'
 import { loadMember } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
-  let member = state.members[ownProps.params.id] || {}
+  let member = state.entities.members[ownProps.params.id] || {}
+
+  if (member) {
+    let projects = values(pick(state.entities.projects, member.projects))
+    let standups = values(pick(state.entities.standups, member.standups))
+
+    return {
+      member,
+      projects,
+      standups
+    }
+  }
 
   return {
     member
@@ -55,9 +68,9 @@ class MemberContainer extends React.Component {
       <div>
         <Member {...this.props.member}/>
         <h3>Projects</h3>
-        <Projects projects={this.state.projects}/>
+        <Projects projects={this.props.projects}/>
         <h3>Standups</h3>
-        <Standups standups={this.state.standups}/>
+        <Standups standups={this.props.standups}/>
       </div>
     )
   }

@@ -11,17 +11,17 @@ function requestMembers () {
       const serialized = normalize(response.data, memberListSchema)
 
       return {
-        members: serialized.entities.members
+        entities: serialized
       }
     })
     .catch(error => ({ error }))
 }
 
 export function* loadRemoteMembers () {
-  const { members, error } = yield call(requestMembers)
+  const { entities, error } = yield call(requestMembers)
 
-  if (members) {
-    yield put(actions.loadMembersSuccess(members))
+  if (entities) {
+    yield put(actions.loadMembersSuccess(entities))
   } else {
     yield put(actions.loadMembersError(error))
   }
@@ -37,17 +37,17 @@ function requestMember (id) {
       const serialized = normalize(response.data, memberSchema)
 
       return {
-        member: serialized.entities.members
+        entities: serialized
       }
     })
     .catch(error => ({ error }))
 }
 
 export function* loadRemoteMember (action) {
-  const { member, error } = yield call(requestMember, action.id)
+  const { entities, error } = yield call(requestMember, action.id)
 
-  if (member) {
-    yield put(actions.loadMemberSuccess(member))
+  if (entities) {
+    yield put(actions.loadMemberSuccess(entities))
   } else {
     yield put(actions.loadMemberError(error))
   }

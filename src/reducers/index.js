@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import createResourceReducer from './creators/createResourceReducer'
-
-import standups from './standups'
+import entities from './entities'
 
 export default combineReducers({
-  projects: createResourceReducer('project'),
-  members: createResourceReducer('member'),
-  standups,
+  entities,
   routing: routerReducer
 })

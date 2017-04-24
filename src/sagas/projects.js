@@ -11,17 +11,17 @@ function requestProjects () {
       const serialized = normalize(response.data, projectListSchema)
 
       return {
-        projects: serialized.entities.projects
+        entities: serialized
       }
     })
     .catch(error => ({ error }))
 }
 
 export function* loadRemoteProjects () {
-  const { projects, error } = yield call(requestProjects)
+  const { entities, error } = yield call(requestProjects)
 
-  if (projects) {
-    yield put(actions.loadProjectsSuccess(projects))
+  if (entities) {
+    yield put(actions.loadProjectsSuccess(entities))
   } else {
     yield put(actions.loadProjectsError(error))
   }
@@ -37,17 +37,17 @@ function requestProject (id) {
       const serialized = normalize(response.data, projectSchema)
 
       return {
-        project: serialized.entities.projects
+        entities: serialized
       }
     })
     .catch(error => ({ error }))
 }
 
 export function* loadRemoteProject (action) {
-  const { project, error } = yield call(requestProject, action.id)
+  const { entities, error } = yield call(requestProject, action.id)
 
-  if (project) {
-    yield put(actions.loadProjectSuccess(project))
+  if (entities) {
+    yield put(actions.loadProjectSuccess(entities))
   } else {
     yield put(actions.loadProjectError(error))
   }

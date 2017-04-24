@@ -8,10 +8,10 @@ export function loadMembers () {
   }
 }
 
-export function loadMembersSuccess (members) {
+export function loadMembersSuccess (entities) {
   return {
     type: LOAD_MEMBERS_SUCCEEDED,
-    members
+    payload: entities
   }
 }
 
@@ -33,10 +33,10 @@ export function loadMember (id) {
   }
 }
 
-export function loadMemberSuccess (member) {
+export function loadMemberSuccess (entities) {
   return {
     type: LOAD_MEMBER_SUCCEEDED,
-    member
+    payload: entities
   }
 }
 

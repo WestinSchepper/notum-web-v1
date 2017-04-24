@@ -11,17 +11,17 @@ function requestStandup (id) {
       const serialized = normalize(response.data, standupSchema)
 
       return {
-        standup: serialized.entities.standups
+        entities: serialized
       }
     })
     .catch(error => ({ error }))
 }
 
 export function* loadRemoteStandup (action) {
-  const { standup, error } = yield call(requestStandup, action.id)
+  const { entities, error } = yield call(requestStandup, action.id)
 
-  if (standup) {
-    yield put(actions.loadStandupSuccess(standup))
+  if (entities) {
+    yield put(actions.loadStandupSuccess(entities))
   } else {
     yield put(actions.loadStandupError(error))
   }

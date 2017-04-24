@@ -9,8 +9,8 @@ import { loadProjects } from '../actions/projects'
 import { loadMembers } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
-  let projects = values(state.projects) || []
-  let members = values(state.members) || []
+  let projects = values(state.entities.projects) || []
+  let members = values(state.entities.members) || []
 
   return {
     projects,

@@ -8,10 +8,10 @@ export function loadProjects () {
   }
 }
 
-export function loadProjectsSuccess (projects) {
+export function loadProjectsSuccess (entities) {
   return {
     type: LOAD_PROJECTS_SUCCEEDED,
-    projects
+    payload: entities
   }
 }
 
@@ -33,10 +33,10 @@ export function loadProject (id) {
   }
 }
 
-export function loadProjectSuccess (project) {
+export function loadProjectSuccess (entities) {
   return {
     type: LOAD_PROJECT_SUCCEEDED,
-    project
+    payload: entities
   }
 }
 

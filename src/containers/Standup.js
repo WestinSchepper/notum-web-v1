@@ -5,9 +5,9 @@ import Standup from '../components/standup-detail'
 import { loadStandup } from '../actions/standups'
 
 const mapStateToProps = (state, ownProps) => {
-  let standup = state.standups[ownProps.params.id] || {}
-  let project = state.projects[standup.project] || {}
-  let member = state.members[standup.member] || {}
+  let standup = state.entities.standups[ownProps.params.id] || {}
+  let project = state.entities.projects[standup.project] || {}
+  let member = state.entities.members[standup.member] || {}
 
   return {
     standup,

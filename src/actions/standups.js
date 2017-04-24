@@ -9,10 +9,10 @@ export function loadStandup (id) {
   }
 }
 
-export function loadStandupSuccess (standup) {
+export function loadStandupSuccess (entities) {
   return {
     type: LOAD_STANDUP_SUCCEEDED,
-    standup
+    payload: entities
   }
 }
 
