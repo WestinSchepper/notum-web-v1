@@ -16,7 +16,10 @@ const mapStateToProps = (state, ownProps) => {
 
     return {
       project,
-      members
+      members,
+      initialValues: {
+        name: project.name
+      }
     }
   }
 
@@ -28,8 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadData: () => {
       dispatch(projectActions.loadProject(ownProps.params.id))
     },
-    handleSave: (event) => {
-      event.preventDefault()
+    onSubmit: (data) => {
+      console.log('onSubmit')
+      console.log(data)
     }
   }
 }
@@ -40,11 +44,11 @@ class ProjectEditContainer extends React.Component {
   }
 
   render () {
-    const { project, members, handleSave } = this.props
+    const { project, members, initialValues, onSubmit } = this.props
 
     return (
       <div>
-        <ProjectEdit {...project} handleSave={handleSave} />
+        <ProjectEdit {...project} initialValues={initialValues} onSubmit={onSubmit} />
         <h3>Members</h3>
         <Members members={members} />
       </div>
