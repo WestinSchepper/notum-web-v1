@@ -1,12 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import pick from 'lodash/pick'
 import values from 'lodash/values'
 
-import Project from '../components/project-detail'
+import ProjectEdit from '../components/project-edit'
 import Members from '../components/members-list'
-import Standups from '../components/standups-list'
 
 import { projectActions } from '../actions/projects'
 
@@ -15,12 +13,10 @@ const mapStateToProps = (state, ownProps) => {
 
   if (project) {
     let members = values(pick(state.entities.members, project.members))
-    let standups = values(pick(state.entities.standups, project.standups))
 
     return {
       project,
-      members,
-      standups
+      members
     }
   }
 
@@ -31,23 +27,26 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
       dispatch(projectActions.loadProject(ownProps.params.id))
+    },
+    handleSave: (event) => {
+      event.preventDefault()
     }
   }
 }
 
-class ProjectContainer extends React.Component {
+class ProjectEditContainer extends React.Component {
   componentWillMount () {
     this.props.loadData()
   }
 
   render () {
+    const { project, members, handleSave } = this.props
+
     return (
       <div>
-        <Project {...this.props.project} />
+        <ProjectEdit {...project} handleSave={handleSave} />
         <h3>Members</h3>
-        <Members members={this.props.members} />
-        <h3>Standups</h3>
-        <Standups standups={this.props.standups} />
+        <Members members={members} />
       </div>
     )
   }
@@ -56,4 +55,4 @@ class ProjectContainer extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProjectContainer)
+)(ProjectEditContainer)
