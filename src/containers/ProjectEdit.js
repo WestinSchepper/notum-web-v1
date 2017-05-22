@@ -4,7 +4,7 @@ import pick from 'lodash/pick'
 import values from 'lodash/values'
 
 import ProjectEdit from '../components/project-edit'
-import Members from '../components/members-list'
+import MemberListEditContainer from './MemberListEdit'
 
 import { projectActions } from '../actions/projects'
 
@@ -55,7 +55,7 @@ class ProjectEditContainer extends React.Component {
       <div>
         <ProjectEdit {...project} initialValues={initialValues} onSubmit={onSubmit} />
         <h3>Members</h3>
-        <Members members={members} />
+        <MemberListEditContainer members={members} />
       </div>
     )
   }
