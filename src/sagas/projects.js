@@ -85,3 +85,61 @@ export function* updateRemoteProject (action) {
 export function* watchUpdateRemoteProject () {
   yield takeLatest(projectActions.UPDATE_PROJECT, updateRemoteProject)
 }
+
+// Remove Member From Project
+function requestRemoveMemberFromProject (projectId, memberId) {
+  const body = {
+    member_id: memberId
+  }
+  return axios.post(`http://localhost:3333/projects/${projectId}/remove_member`, body)
+    .then(response => {
+      return {
+        projectId,
+        memberId
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* removeRemoteMemberFromProject (action) {
+  const { projectId, memberId, error } = yield call(requestRemoveMemberFromProject, action.projectId, action.memberId)
+
+  if (projectId, memberId) {
+    yield put(projectActions.removeMemberSuccess(projectId, memberId))
+  } else {
+    yield put(projectActions.removeMemberError(error))
+  }
+}
+
+export function* watchRemoveRemoteMemberFromProject () {
+  yield takeLatest(projectActions.REMOVE_MEMBER_FROM_PROJECT, removeRemoteMemberFromProject)
+}
+
+// Add Member From Project
+function requestAddMemberFromProject (projectId, memberId) {
+  const body = {
+    member_id: memberId
+  }
+  return axios.post(`http://localhost:3333/projects/${projectId}/add_member`, body)
+    .then(response => {
+      return {
+        projectId,
+        memberId
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* addRemoteMemberFromProject (action) {
+  const { projectId, memberId, error } = yield call(requestAddMemberFromProject, action.projectId, action.memberId)
+
+  if (projectId, memberId) {
+    yield put(projectActions.addMemberSuccess(projectId, memberId))
+  } else {
+    yield put(projectActions.addMemberError(error))
+  }
+}
+
+export function* watchAddRemoteMemberFromProject () {
+  yield takeLatest(projectActions.ADD_MEMBER_FROM_PROJECT, addRemoteMemberFromProject)
+}

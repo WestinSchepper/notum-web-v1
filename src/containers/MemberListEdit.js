@@ -4,13 +4,12 @@ import { connect } from 'react-redux'
 import Member from '../components/member-item'
 import List from '../components/list'
 
-// import { projectActions } from '../actions/projects'
+import { projectActions } from '../actions/projects'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: (member) => {
-      console.log(member)
-      // dispatch(projectActions.removeMember(ownProps.params.id, member.id))
+      dispatch(projectActions.removeMember(ownProps.params.id, member.id))
     }
   }
 }

@@ -55,7 +55,7 @@ class ProjectEditContainer extends React.Component {
       <div>
         <ProjectEdit {...project} initialValues={initialValues} onSubmit={onSubmit} />
         <h3>Members</h3>
-        <MemberListEditContainer members={members} />
+        <MemberListEditContainer members={members} {...this.props} />
       </div>
     )
   }

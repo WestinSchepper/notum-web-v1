@@ -1,7 +1,9 @@
 import {
   watchLoadRemoteProjects,
   watchLoadRemoteProject,
-  watchUpdateRemoteProject
+  watchUpdateRemoteProject,
+  watchRemoveRemoteMemberFromProject,
+  watchAddRemoteMemberFromProject
 } from './projects'
 
 import {
@@ -16,8 +18,12 @@ export default function* rootSaga () {
     watchLoadRemoteProjects(),
     watchLoadRemoteProject(),
     watchUpdateRemoteProject(),
+    watchRemoveRemoteMemberFromProject(),
+    watchAddRemoteMemberFromProject(),
+
     watchLoadRemoteMembers(),
     watchLoadRemoteMember(),
+
     watchLoadRemoteStandup()
   ]
 }
