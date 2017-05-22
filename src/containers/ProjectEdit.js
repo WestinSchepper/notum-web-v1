@@ -32,8 +32,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(projectActions.loadProject(ownProps.params.id))
     },
     onSubmit: (data) => {
-      console.log('onSubmit')
-      console.log(data)
+      const formattedData = {
+        project: {
+          name: data.name
+        }
+      }
+
+      dispatch(projectActions.updateProject(ownProps.params.id, formattedData))
     }
   }
 }

@@ -5,6 +5,7 @@ import axios from 'axios'
 import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
 
+// Fetch Members
 function requestMembers () {
   return axios.get('http://localhost:3333/members')
     .then(response => {
@@ -31,6 +32,7 @@ export function* watchLoadRemoteMembers () {
   yield takeLatest(membersActions.LOAD_MEMBERS, loadRemoteMembers)
 }
 
+// Fetch Member
 function requestMember (id) {
   return axios.get(`http://localhost:3333/members/${id}`)
     .then(response => {

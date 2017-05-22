@@ -5,6 +5,7 @@ import axios from 'axios'
 import { standupActions } from '../actions/standups'
 import { standupSchema } from '../schemas'
 
+// Fetch Standup
 function requestStandup (id) {
   return axios.get(`http://localhost:3333/standups/${id}`)
     .then(response => {

@@ -5,6 +5,7 @@ import axios from 'axios'
 import { projectsActions, projectActions } from '../actions/projects'
 import { projectListSchema, projectSchema } from '../schemas'
 
+// Fetch Projects
 function requestProjects () {
   return axios.get('http://localhost:3333/projects')
     .then(response => {
@@ -31,6 +32,7 @@ export function* watchLoadRemoteProjects () {
   yield takeLatest(projectsActions.LOAD_PROJECTS, loadRemoteProjects)
 }
 
+// Fetch Project
 function requestProject (id) {
   return axios.get(`http://localhost:3333/projects/${id}`)
     .then(response => {
@@ -55,4 +57,31 @@ export function* loadRemoteProject (action) {
 
 export function* watchLoadRemoteProject () {
   yield takeLatest(projectActions.LOAD_PROJECT, loadRemoteProject)
+}
+
+// Update Project
+function requestUpdateProject (id, body) {
+  return axios.put(`http://localhost:3333/projects/${id}`, body)
+    .then(response => {
+      const serialized = normalize(response.data, projectSchema)
+
+      return {
+        entities: serialized
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* updateRemoteProject (action) {
+  const { entities, error } = yield call(requestUpdateProject, action.id, action.body)
+
+  if (entities) {
+    yield put(projectActions.updateProjectSuccess(entities))
+  } else {
+    yield put(projectActions.updateProjectError(error))
+  }
+}
+
+export function* watchUpdateRemoteProject () {
+  yield takeLatest(projectActions.UPDATE_PROJECT, updateRemoteProject)
 }

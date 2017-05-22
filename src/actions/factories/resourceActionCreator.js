@@ -15,7 +15,10 @@ function createResourceAction (resourceName, hasID = false) {
   const constants = Object.freeze({
     [`LOAD_${resourceUppercase}`]: `LOAD_${resourceUppercase}`,
     [`LOAD_${resourceUppercase}_SUCCEEDED`]: `LOAD_${resourceUppercase}_SUCCEEDED`,
-    [`LOAD_${resourceUppercase}_FAILED`]: `LOAD_${resourceUppercase}_FAILED`
+    [`LOAD_${resourceUppercase}_FAILED`]: `LOAD_${resourceUppercase}_FAILED`,
+    [`UPDATE_${resourceUppercase}`]: `UPDATE_${resourceUppercase}`,
+    [`UPDATE_${resourceUppercase}_SUCCEEDED`]: `UPDATE_${resourceUppercase}_SUCCEEDED`,
+    [`UPDATE_${resourceUppercase}_FAILED`]: `UPDATE_${resourceUppercase}_FAILED`
   })
 
   const actions = {
@@ -27,6 +30,21 @@ function createResourceAction (resourceName, hasID = false) {
 
     [`load${resourceCapitalized}Error`]: (error) => ({
       type: `LOAD_${resourceUppercase}_FAILED`,
+      error
+    }),
+
+    [`update${resourceCapitalized}`]: (id, body) => ({
+      type: `UPDATE_${resourceUppercase}`,
+      id,
+      body
+    }),
+    [`update${resourceCapitalized}Success`]: (entities) => ({
+      type: `UPDATE_${resourceUppercase}_SUCCEEDED`,
+      payload: entities
+    }),
+
+    [`update${resourceCapitalized}Error`]: (error) => ({
+      type: `UPDATE_${resourceUppercase}_FAILED`,
       error
     })
   }
