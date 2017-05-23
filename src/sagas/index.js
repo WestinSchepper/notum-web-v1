@@ -3,7 +3,7 @@ import {
   watchLoadRemoteProject,
   watchUpdateRemoteProject,
   watchRemoveRemoteMemberFromProject,
-  watchAddRemoteMemberFromProject
+  watchAddRemoteMemberToProject
 } from './projects'
 
 import {
@@ -19,7 +19,7 @@ export default function* rootSaga () {
     watchLoadRemoteProject(),
     watchUpdateRemoteProject(),
     watchRemoveRemoteMemberFromProject(),
-    watchAddRemoteMemberFromProject(),
+    watchAddRemoteMemberToProject(),
 
     watchLoadRemoteMembers(),
     watchLoadRemoteMember(),

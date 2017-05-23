@@ -104,7 +104,7 @@ function requestRemoveMemberFromProject (projectId, memberId) {
 export function* removeRemoteMemberFromProject (action) {
   const { projectId, memberId, error } = yield call(requestRemoveMemberFromProject, action.projectId, action.memberId)
 
-  if (projectId, memberId) {
+  if (projectId && memberId) {
     yield put(projectActions.removeMemberSuccess(projectId, memberId))
   } else {
     yield put(projectActions.removeMemberError(error))
@@ -115,8 +115,8 @@ export function* watchRemoveRemoteMemberFromProject () {
   yield takeLatest(projectActions.REMOVE_MEMBER_FROM_PROJECT, removeRemoteMemberFromProject)
 }
 
-// Add Member From Project
-function requestAddMemberFromProject (projectId, memberId) {
+// // Add Member From Project
+function requestAddMemberToProject (projectId, memberId) {
   const body = {
     member_id: memberId
   }
@@ -130,16 +130,16 @@ function requestAddMemberFromProject (projectId, memberId) {
     .catch(error => ({ error }))
 }
 
-export function* addRemoteMemberFromProject (action) {
-  const { projectId, memberId, error } = yield call(requestAddMemberFromProject, action.projectId, action.memberId)
+export function* addRemoteMemberToProject (action) {
+  const { projectId, memberId, error } = yield call(requestAddMemberToProject, action.projectId, action.memberId)
 
-  if (projectId, memberId) {
+  if (projectId && memberId) {
     yield put(projectActions.addMemberSuccess(projectId, memberId))
   } else {
     yield put(projectActions.addMemberError(error))
   }
 }
 
-export function* watchAddRemoteMemberFromProject () {
-  yield takeLatest(projectActions.ADD_MEMBER_FROM_PROJECT, addRemoteMemberFromProject)
+export function* watchAddRemoteMemberToProject () {
+  yield takeLatest(projectActions.ADD_MEMBER_TO_PROJECT, addRemoteMemberToProject)
 }
