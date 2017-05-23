@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import pick from 'lodash/pick'
 import values from 'lodash/values'
