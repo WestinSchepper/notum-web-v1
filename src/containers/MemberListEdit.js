@@ -10,18 +10,37 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onDelete: (member) => {
       dispatch(projectActions.removeMember(ownProps.params.id, member.id))
+    },
+    onAdd: (member) => {
+      dispatch(projectActions.addMember(ownProps.params.id, member.id))
     }
   }
 }
 
 class MemberListEditContainer extends React.Component {
-  configureMemberItem (member) {
-    let onDeleteBound = this.props.onDelete.bind(this, member)
+  configureAccessory (member) {
+    const { projectMembers, onDelete, onAdd } = this.props
+    const memberBelongsToProject = projectMembers.find((projectMember) => (projectMember.id === member.id))
+    let accessory = null
 
+    if (memberBelongsToProject) {
+      let onDeleteBound = onDelete.bind(this, member)
+      accessory = <button onClick={onDeleteBound}>Delete</button>
+
+    } else {
+      let onAddBound = onAdd.bind(this, member)
+      accessory = <button onClick={onAddBound}>Add</button>
+
+    }
+
+    return accessory
+  }
+
+  configureMemberItem (member) {
     return (
       <Member
         {...member}
-        rightAccessory={<button onClick={onDeleteBound}>Delete</button>}
+        rightAccessory={this.configureAccessory(member)}
       />
     )
   }

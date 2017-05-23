@@ -7,15 +7,18 @@ import ProjectEdit from '../components/project-edit'
 import MemberListEditContainer from './MemberListEdit'
 
 import { projectActions } from '../actions/projects'
+import { membersActions } from '../actions/members'
 
 const mapStateToProps = (state, ownProps) => {
   let project = state.entities.projects[ownProps.params.id] || {}
 
   if (project) {
-    let members = values(pick(state.entities.members, project.members))
+    let projectMembers = values(pick(state.entities.members, project.members))
+    let members = state.entities.members
 
     return {
       project,
+      projectMembers,
       members,
       initialValues: {
         name: project.name
@@ -29,6 +32,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     loadData: () => {
+      dispatch(membersActions.loadMembers())
       dispatch(projectActions.loadProject(ownProps.params.id))
     },
     onSubmit: (data) => {
@@ -49,13 +53,13 @@ class ProjectEditContainer extends React.Component {
   }
 
   render () {
-    const { project, members, initialValues, onSubmit } = this.props
+    const { project, initialValues, onSubmit } = this.props
 
     return (
       <div>
         <ProjectEdit {...project} initialValues={initialValues} onSubmit={onSubmit} />
         <h3>Members</h3>
-        <MemberListEditContainer members={members} {...this.props} />
+        <MemberListEditContainer {...this.props} />
       </div>
     )
   }
