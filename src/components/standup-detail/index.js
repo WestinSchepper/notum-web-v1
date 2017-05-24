@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const StandupDetail = ({standup, project, member}) => (
   <div>
-    <h2>Standup <Link to={`/standups/${standup.id}/edit`}><button>edit</button></Link></h2>
+    <h2>Standup</h2>
     <ul>
       <li><Link to={`/projects/${project.id}`}>{project.name}</Link></li>
       <li><Link to={`/members/${member.id}`}>{member.name}</Link></li>
