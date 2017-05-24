@@ -7,10 +7,14 @@ const MemberDetailEdit = ({ id, name, email, createdAt, updatedAt, handleSubmit 
   <div>
     <div>
       <form onSubmit={handleSubmit}>
-        <Field name='name' component='input' type='text' placeholder='Member Name' />
-        <button type='submit'>save</button>
-        <Link to={`/members/${id}`}>cancel</Link>
-        <Field name='email' component='input' type='email' placeholder={email} />
+        <p>
+          <Field name='name' component='input' type='text' placeholder={name} />
+          <button type='submit'>save</button>
+          <Link to={`/members/${id}`}>cancel</Link>
+        </p>
+        <p>
+          <Field name='email' component='input' type='email' placeholder={email} />
+        </p>
       </form>
     </div>
     <ul>
