@@ -112,3 +112,28 @@ export function* createRemoteMember (action) {
 export function* watchCreateRemoteMember () {
   yield takeLatest(memberActions.CREATE_MEMBER, createRemoteMember)
 }
+
+// Delete Member
+function requestRemoveMember (id) {
+  return axios.delete(`http://localhost:3333/members/${id}`)
+    .then(response => {
+      return {
+        id
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* removeRemoteMember (action) {
+  const { id, error } = yield call(requestRemoveMember, action.id)
+
+  if (id) {
+    yield put(memberActions.removeMemberSuccess(id))
+  } else {
+    yield put(memberActions.removeMemberError(error))
+  }
+}
+
+export function* watchRemoveRemoteMember () {
+  yield takeLatest(memberActions.REMOVE_MEMBER, removeRemoteMember)
+}

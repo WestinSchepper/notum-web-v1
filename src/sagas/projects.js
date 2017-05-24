@@ -138,7 +138,6 @@ export function* watchRemoveRemoteProject () {
   yield takeLatest(projectActions.REMOVE_PROJECT, removeRemoteProject)
 }
 
-
 // Remove Member From Project
 function requestRemoveMemberFromProject (projectId, memberId) {
   const body = {
