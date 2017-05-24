@@ -113,6 +113,32 @@ export function* watchCreateRemoteProject () {
   yield takeLatest(projectActions.CREATE_PROJECT, createRemoteProject)
 }
 
+// Delete Project
+function requestRemoveProject (id) {
+  return axios.delete(`http://localhost:3333/projects/${id}`)
+    .then(response => {
+      return {
+        id
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* removeRemoteProject (action) {
+  const { id, error } = yield call(requestRemoveProject, action.id)
+
+  if (id) {
+    yield put(projectActions.removeProjectSuccess(id))
+  } else {
+    yield put(projectActions.removeProjectError(error))
+  }
+}
+
+export function* watchRemoveRemoteProject () {
+  yield takeLatest(projectActions.REMOVE_PROJECT, removeRemoteProject)
+}
+
+
 // Remove Member From Project
 function requestRemoveMemberFromProject (projectId, memberId) {
   const body = {

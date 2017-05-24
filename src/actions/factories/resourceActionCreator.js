@@ -23,7 +23,11 @@ function createResourceAction (resourceName, hasID = false) {
 
     [`CREATE_${resourceUppercase}`]: `CREATE_${resourceUppercase}`,
     [`CREATE_${resourceUppercase}_SUCCEEDED`]: `CREATE_${resourceUppercase}_SUCCEEDED`,
-    [`CREATE_${resourceUppercase}_FAILED`]: `CREATE_${resourceUppercase}_FAILED`
+    [`CREATE_${resourceUppercase}_FAILED`]: `CREATE_${resourceUppercase}_FAILED`,
+    
+    [`REMOVE_${resourceUppercase}`]: `REMOVE_${resourceUppercase}`,
+    [`REMOVE_${resourceUppercase}_SUCCEEDED`]: `REMOVE_${resourceUppercase}_SUCCEEDED`,
+    [`REMOVE_${resourceUppercase}_FAILED`]: `REMOVE_${resourceUppercase}_FAILED`
   })
 
   const actions = {
@@ -61,6 +65,19 @@ function createResourceAction (resourceName, hasID = false) {
     }),
     [`create${resourceCapitalized}Error`]: (error) => ({
       type: `CREATE_${resourceUppercase}_FAILED`,
+      error
+    }),
+
+    [`remove${resourceCapitalized}`]: (id) => ({
+      type: `REMOVE_${resourceUppercase}`,
+      id
+    }),
+    [`remove${resourceCapitalized}Success`]: (id) => ({
+      type: `REMOVE_${resourceUppercase}_SUCCEEDED`,
+      id
+    }),
+    [`remove${resourceCapitalized}Error`]: (error) => ({
+      type: `REMOVE_${resourceUppercase}_FAILED`,
       error
     })
   }

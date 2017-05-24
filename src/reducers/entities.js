@@ -1,5 +1,6 @@
 import merge from 'lodash/merge'
 import without from 'lodash/without'
+import omit from 'lodash/omit'
 
 import { projectActions } from '../actions/projects'
 
@@ -18,6 +19,11 @@ export default function (state = defaultState, action) {
   let newState = Object.assign({}, state)
 
   switch (action.type) {
+    case projectActions.REMOVE_PROJECT_SUCCEEDED:
+      newState.projects = omit(newState.projects, action.id)
+
+      return newState
+
     case projectActions.REMOVE_MEMBER_FROM_PROJECT_SUCCEEDED:
       newState.projects[action.projectId].members = without(newState.projects[action.projectId].members, action.memberId)
       // This didn't work without casting `action.projectId` from a String to an Int

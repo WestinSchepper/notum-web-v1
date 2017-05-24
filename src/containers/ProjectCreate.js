@@ -1,5 +1,4 @@
 import React from 'react'
-import { dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 
