@@ -2,24 +2,29 @@ import React, { PropTypes } from 'react'
 import Standup from '../standup-item'
 import { Link } from 'react-router'
 
-const StandupsList = ({standups}) => (
-  <ul>
-    {(standups.length > 0)
-      ? standups.map((standup) =>
-        (
-          <li key={standup.id}>
-            <Link to={`/standups/${standup.id}`}>
-              <Standup {...standup} />
-            </Link>
-          </li>
-        ))
-      : <p>No standups we're found</p>
-    }
-  </ul>
-)
+import List from '../list'
+
+class StandupsList extends React.Component {
+  configureStandupItem (standup) {
+    return (
+      <Link to={`/standups/${standup.id}`}>
+        <Standup {...standup} project={this.props.project} member={this.props.members[standup.member_id]} />
+      </Link>
+    )
+  }
+  
+  render () {
+    return (
+      <List
+        items={this.props.standups}
+        configureItem={this.configureStandupItem.bind(this)}
+      />
+    )
+  }
+}
 
 StandupsList.propTypes = {
-  standups: PropTypes.array
+  standups: PropTypes.object.isRequired
 }
 
 export default StandupsList

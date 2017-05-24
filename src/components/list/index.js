@@ -6,7 +6,7 @@ const List = ({items, listComponent = 'ul', itemComponent = 'li', configureEmpty
   const ItemComponent = itemComponent
 
   if (!configureEmptyComponent) {
-    configureEmptyComponent = () => (<p>No members we're found</p>)
+    configureEmptyComponent = () => (<p>There's nothing here</p>)
   }
 
   return (

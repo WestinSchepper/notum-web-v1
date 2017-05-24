@@ -4,7 +4,7 @@ import moment from 'moment'
 const StandupItem = ({id, project, member, createdAt}) => {
   const projectName = (project) ? `${project.name} - ` : null
   const memberName = (member) ? `${member.name} - ` : null
-  const title = projectName || memberName || null
+  const title = memberName || projectName || null
 
   return (
     <div>
