@@ -5,6 +5,7 @@ import omit from 'lodash/omit'
 
 import { projectActions } from '../actions/projects'
 import { memberActions } from '../actions/members'
+import { standupActions } from '../actions/standups'
 
 const defaultState = {
   projects: {},
@@ -53,7 +54,7 @@ export default function (state = defaultState, action) {
 
     case projectActions.REMOVE_MEMBER_FROM_PROJECT_SUCCEEDED:
       newState.projects[action.projectId].members = without(newState.projects[action.projectId].members, action.memberId)
-      // This didn't work without casting `action.projectId` from a String to an Int
+      // This didn't work without casting `action.projectId` from a String to an Int.
       newState.members[action.memberId].projects = without(newState.members[action.memberId].projects, ~~action.projectId)
 
       return newState
@@ -61,7 +62,20 @@ export default function (state = defaultState, action) {
     case projectActions.ADD_MEMBER_TO_PROJECT_SUCCEEDED:
       return updateMembersAndProjects(newState, action.projectId, action.memberId)
 
-    default:
-      return state
+    case standupActions.CREATE_STANDUP_SUCCEEDED:
+      // TODO: Figure out how to elegantly achieve this.
+      newState = merge({}, newState, action.payload.entities)
+
+      newState.projects[action.payload.entities.standups[action.payload.result].project_id] = {
+        ...newState.projects[action.payload.entities.standups[action.payload.result].project_id],
+        standups: [
+          ...newState.projects[action.payload.entities.standups[action.payload.result].project_id].standups || [],
+          action.payload.result
+        ]
+      }
+
+      return newState
+
+    default: return state
   }
 }

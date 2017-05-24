@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import pick from 'lodash/pick'
 import values from 'lodash/values'
 
@@ -35,6 +36,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadData: () => {
       dispatch(membersActions.loadMembers())
       dispatch(projectActions.loadProject(ownProps.params.id))
+    },
+    createStandup: () => {
+      dispatch(push(`/projects/${ownProps.params.id}/create_standup`))
     }
   }
 }
@@ -44,16 +48,21 @@ class ProjectContainer extends React.Component {
     this.props.loadData()
   }
 
+  createStandup () {
+    this.props.createStandup()
+  }
+
   render () {
-    const { project, projectMembers, members, standups } = this.props
+    const { project, projectMembers, members, standups, children } = this.props
 
     return (
       <div>
         <Project {...project} />
         <h3>Members</h3>
         <Members members={projectMembers} />
-        <h3>Standups</h3>
+        <h3>Standups <button onClick={this.createStandup.bind(this)}>Add</button></h3>
         <Standups standups={standups} members={members} project={project} />
+        {children}
       </div>
     )
   }

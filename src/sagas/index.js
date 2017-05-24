@@ -16,7 +16,10 @@ import {
   watchRemoveRemoteMember
 } from './members'
 
-import { watchLoadRemoteStandup } from './standups'
+import {
+  watchLoadRemoteStandup,
+  watchCreateRemoteStandup
+} from './standups'
 
 export default function* rootSaga () {
   yield [
@@ -34,6 +37,7 @@ export default function* rootSaga () {
     watchCreateRemoteMember(),
     watchRemoveRemoteMember(),
 
-    watchLoadRemoteStandup()
+    watchLoadRemoteStandup(),
+    watchCreateRemoteStandup()
   ]
 }

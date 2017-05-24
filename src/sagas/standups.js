@@ -31,3 +31,30 @@ export function* loadRemoteStandup (action) {
 export function* watchLoadRemoteStandup () {
   yield takeLatest(standupActions.LOAD_STANDUP, loadRemoteStandup)
 }
+
+// Create Standup
+function requestCreateStandup (body) {
+  return axios.post(`http://localhost:3333/standups`, body)
+    .then(response => {
+      const serialized = normalize(response.data, standupSchema)
+
+      return {
+        entities: serialized
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* createRemoteStandup (action) {
+  const { entities, error } = yield call(requestCreateStandup, action.body)
+
+  if (entities) {
+    yield put(standupActions.createStandupSuccess(entities))
+  } else {
+    yield put(standupActions.createStandupError(error))
+  }
+}
+
+export function* watchCreateRemoteStandup () {
+  yield takeLatest(standupActions.CREATE_STANDUP, createRemoteStandup)
+}

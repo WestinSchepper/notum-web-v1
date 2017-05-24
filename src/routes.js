@@ -12,6 +12,7 @@ import MemberEditContainer from './containers/MemberEdit'
 import MemberCreateContainer from './containers/MemberCreate'
 
 import StandupContainer from './containers/Standup'
+import StandupCreateContainer from './containers/StandupCreate'
 
 import NotFound from './components/not-found'
 
@@ -26,6 +27,9 @@ export default (
         <Route path=':id'>
           <IndexRoute component={ProjectContainer} />
           <Route path='edit' component={ProjectEditContainer} />
+          <Route path='create_standup' component={ProjectContainer}>
+            <IndexRoute component={StandupCreateContainer} />
+          </Route>
         </Route>
       </Route>
       <Route path='members'>
