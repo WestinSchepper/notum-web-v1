@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
 
   if (member) {
     let projects = values(pick(state.entities.projects, member.projects))
-    let standups = values(pick(state.entities.standups, member.standups))
+    let standups = pick(state.entities.standups, member.standups)
 
     return {
       member,
@@ -48,7 +48,7 @@ class MemberContainer extends React.Component {
         <h3>Projects</h3>
         <Projects projects={this.props.projects}/>
         <h3>Standups</h3>
-        <Standups standups={this.props.standups}/>
+        <Standups standups={this.props.standups} members={this.props.member} />
       </div>
     )
   }
