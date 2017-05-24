@@ -34,6 +34,23 @@ const updateMembersAndProjects = (newState = {}, projectId, memberId) => {
 }
 
 export default function (state = defaultState, action) {
+  // TODO: Figure out how to elegantly achieve this.
+  if (action.type === standupActions.CREATE_STANDUP_SUCCEEDED) {
+    let newState = cloneDeep(state)
+
+    newState = merge({}, newState, action.payload.entities)
+
+    newState.projects[action.payload.entities.standups[action.payload.result].project_id] = {
+      ...newState.projects[action.payload.entities.standups[action.payload.result].project_id],
+      standups: [
+        ...newState.projects[action.payload.entities.standups[action.payload.result].project_id].standups || [],
+        action.payload.result
+      ]
+    }
+
+    return newState
+  }
+
   if (action.payload && action.payload.entities) {
     return merge({}, state, action.payload.entities)
   }
@@ -61,20 +78,6 @@ export default function (state = defaultState, action) {
 
     case projectActions.ADD_MEMBER_TO_PROJECT_SUCCEEDED:
       return updateMembersAndProjects(newState, action.projectId, action.memberId)
-
-    case standupActions.CREATE_STANDUP_SUCCEEDED:
-      // TODO: Figure out how to elegantly achieve this.
-      newState = merge({}, newState, action.payload.entities)
-
-      newState.projects[action.payload.entities.standups[action.payload.result].project_id] = {
-        ...newState.projects[action.payload.entities.standups[action.payload.result].project_id],
-        standups: [
-          ...newState.projects[action.payload.entities.standups[action.payload.result].project_id].standups || [],
-          action.payload.result
-        ]
-      }
-
-      return newState
 
     default: return state
   }

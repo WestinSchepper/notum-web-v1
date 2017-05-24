@@ -8,7 +8,7 @@ const StandupCreateForm = ({ project, projectMembers, selectedMember, handleSubm
       Project: {project && project.name}
     </h3>
     <h3>
-      Member: 
+      Member:
       <Field name='memberId' component='select'>
         <option></option>
         {!isEmpty(projectMembers) && Object.keys(projectMembers).map((member) => (
@@ -17,17 +17,17 @@ const StandupCreateForm = ({ project, projectMembers, selectedMember, handleSubm
       </Field></h3>
     <p>
       <label htmlFor='did'>did: </label>
-      <br/>
+      <br />
       <Field name='did' component='textarea' rows='8' cols='50' placeholder={`What did ${selectedMember.name || 'the member'} do?`} />
     </p>
     <p>
       <label htmlFor='doing'>doing: </label>
-      <br/>
+      <br />
       <Field name='doing' component='textarea' rows='8' cols='50' placeholder={`What is ${selectedMember.name || 'the member'} doing?`} />
     </p>
     <p>
       <label htmlFor='impediments'>impediments: </label>
-      <br/>
+      <br />
       <Field name='impediments' component='textarea' rows='8' cols='50' placeholder={`Did ${selectedMember.name || 'the member'} have any impediments?`} />
     </p>
     <p>
@@ -37,6 +37,9 @@ const StandupCreateForm = ({ project, projectMembers, selectedMember, handleSubm
 )
 
 StandupCreateForm.propTypes = {
+  project: PropTypes.object.isRequired,
+  projectMembers: PropTypes.object.isRequired,
+  selectedMember: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired
 }
 
