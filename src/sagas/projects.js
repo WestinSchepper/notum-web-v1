@@ -86,6 +86,33 @@ export function* watchUpdateRemoteProject () {
   yield takeLatest(projectActions.UPDATE_PROJECT, updateRemoteProject)
 }
 
+// Create Project
+function requestCreateProject (body) {
+  return axios.post(`http://localhost:3333/projects`, body)
+    .then(response => {
+      const serialized = normalize(response.data, projectSchema)
+
+      return {
+        entities: serialized
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* createRemoteProject (action) {
+  const { entities, error } = yield call(requestCreateProject, action.body)
+
+  if (entities) {
+    yield put(projectActions.createProjectSuccess(entities))
+  } else {
+    yield put(projectActions.createProjectError(error))
+  }
+}
+
+export function* watchCreateRemoteProject () {
+  yield takeLatest(projectActions.CREATE_PROJECT, createRemoteProject)
+}
+
 // Remove Member From Project
 function requestRemoveMemberFromProject (projectId, memberId) {
   const body = {

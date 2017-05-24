@@ -5,6 +5,7 @@ import App from './containers/App'
 import Landing from './containers/Landing'
 import ProjectContainer from './containers/Project'
 import ProjectEditContainer from './containers/ProjectEdit'
+import ProjectCreateContainer from './containers/ProjectCreate'
 
 import MemberContainer from './containers/Member'
 import StandupContainer from './containers/Standup'
@@ -15,9 +16,14 @@ export default (
   <Route>
     <Route path='/' component={App}>
       <IndexRoute component={Landing} />
-      <Route path='projects/:id'>
-        <IndexRoute component={ProjectContainer} />
-        <Route path='edit' component={ProjectEditContainer} />
+      <Route path='projects'>
+        <Route path='create' component={Landing}>
+          <IndexRoute component={ProjectCreateContainer} />
+        </Route>
+        <Route path=':id'>
+          <IndexRoute component={ProjectContainer} />
+          <Route path='edit' component={ProjectEditContainer} />
+        </Route>
       </Route>
       <Route path='members/:id'>
         <IndexRoute component={MemberContainer} />

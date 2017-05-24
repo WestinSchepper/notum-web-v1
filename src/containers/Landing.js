@@ -1,4 +1,5 @@
 import React from 'react'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import values from 'lodash/values'
 
@@ -23,6 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     loadData: () => {
       dispatch(projectsActions.loadProjects())
       dispatch(membersActions.loadMembers())
+    },
+    createProject: () => {
+      dispatch(push('/projects/create'))
     }
   }
 }
@@ -33,16 +37,19 @@ class Landing extends React.Component {
   }
 
   render () {
+    const { projects, members, createProject, children } = this.props
+    
     return (
       <div>
         <div className='project-list'>
-          <h2>Projects</h2>
-          <Projects projects={this.props.projects} />
+          <h2>Projects <button onClick={createProject}>Add</button></h2>
+          <Projects projects={projects} />
         </div>
         <div className='member-list'>
           <h2>Members</h2>
-          <Members members={this.props.members} />
+          <Members members={members} />
         </div>
+        {children}
       </div>
     )
   }

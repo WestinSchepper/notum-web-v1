@@ -16,9 +16,14 @@ function createResourceAction (resourceName, hasID = false) {
     [`LOAD_${resourceUppercase}`]: `LOAD_${resourceUppercase}`,
     [`LOAD_${resourceUppercase}_SUCCEEDED`]: `LOAD_${resourceUppercase}_SUCCEEDED`,
     [`LOAD_${resourceUppercase}_FAILED`]: `LOAD_${resourceUppercase}_FAILED`,
+
     [`UPDATE_${resourceUppercase}`]: `UPDATE_${resourceUppercase}`,
     [`UPDATE_${resourceUppercase}_SUCCEEDED`]: `UPDATE_${resourceUppercase}_SUCCEEDED`,
-    [`UPDATE_${resourceUppercase}_FAILED`]: `UPDATE_${resourceUppercase}_FAILED`
+    [`UPDATE_${resourceUppercase}_FAILED`]: `UPDATE_${resourceUppercase}_FAILED`,
+
+    [`CREATE_${resourceUppercase}`]: `CREATE_${resourceUppercase}`,
+    [`CREATE_${resourceUppercase}_SUCCEEDED`]: `CREATE_${resourceUppercase}_SUCCEEDED`,
+    [`CREATE_${resourceUppercase}_FAILED`]: `CREATE_${resourceUppercase}_FAILED`
   })
 
   const actions = {
@@ -27,7 +32,6 @@ function createResourceAction (resourceName, hasID = false) {
       type: `LOAD_${resourceUppercase}_SUCCEEDED`,
       payload: entities
     }),
-
     [`load${resourceCapitalized}Error`]: (error) => ({
       type: `LOAD_${resourceUppercase}_FAILED`,
       error
@@ -42,9 +46,21 @@ function createResourceAction (resourceName, hasID = false) {
       type: `UPDATE_${resourceUppercase}_SUCCEEDED`,
       payload: entities
     }),
-
     [`update${resourceCapitalized}Error`]: (error) => ({
       type: `UPDATE_${resourceUppercase}_FAILED`,
+      error
+    }),
+
+    [`create${resourceCapitalized}`]: (body) => ({
+      type: `CREATE_${resourceUppercase}`,
+      body
+    }),
+    [`create${resourceCapitalized}Success`]: (entities) => ({
+      type: `CREATE_${resourceUppercase}_SUCCEEDED`,
+      payload: entities
+    }),
+    [`create${resourceCapitalized}Error`]: (error) => ({
+      type: `CREATE_${resourceUppercase}_FAILED`,
       error
     })
   }
