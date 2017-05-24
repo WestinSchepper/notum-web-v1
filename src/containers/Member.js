@@ -42,13 +42,15 @@ class MemberContainer extends React.Component {
   }
 
   render () {
+    const { member, projects, standups } = this.props
+
     return (
       <div>
-        <Member {...this.props.member}/>
+        <Member {...member} />
         <h3>Projects</h3>
-        <Projects projects={this.props.projects}/>
+        <Projects projects={projects} />
         <h3>Standups</h3>
-        <Standups standups={this.props.standups} members={this.props.member} />
+        <Standups standups={standups} members={member} />
       </div>
     )
   }
