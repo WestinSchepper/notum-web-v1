@@ -33,6 +33,7 @@ export default function (state = defaultState, action) {
 
     case projectActions.ADD_MEMBER_TO_PROJECT_SUCCEEDED:
       newState.projects[action.projectId].members.push(action.memberId)
+      newState.members[action.memberId].projects.push(action.projectId)
 
       return newState
 

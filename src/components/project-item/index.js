@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react'
 
-const ProjectItem = ({id, name}) => (
+const ProjectItem = ({name, leftAccessory, rightAccessory}) => (
   <div>
-    <h4>{name}</h4>
+    <h4>{leftAccessory} {name} {rightAccessory}</h4>
   </div>
 )
 
 ProjectItem.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string,
+  leftAccessory: PropTypes.element,
+  rightAccessory: PropTypes.element
 }
 
 export default ProjectItem

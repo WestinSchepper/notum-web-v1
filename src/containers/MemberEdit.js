@@ -5,7 +5,7 @@ import pick from 'lodash/pick'
 import values from 'lodash/values'
 
 import MemberEdit from '../components/member-edit'
-// import MemberListEditContainer from './MemberListEdit'
+import ProjectListEditContainer from './ProjectListEdit'
 import Alert from '../components/alert'
 
 import { memberActions } from '../actions/members'
@@ -92,7 +92,7 @@ class MemberEditContainer extends React.Component {
       <div>
         <MemberEdit {...member} initialValues={initialValues} onSubmit={onSubmit} onDelete={onDelete} />
         <h3>Members</h3>
-        {/* <MemberListEditContainer {...this.props} /> */}
+        <ProjectListEditContainer {...this.props} />
         <button onClick={this.showAlert.bind(this)}>Delete {member.name}</button>
         {this.state.alert &&
           <Alert
