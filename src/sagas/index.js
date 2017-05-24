@@ -10,7 +10,8 @@ import {
 
 import {
   watchLoadRemoteMembers,
-  watchLoadRemoteMember
+  watchLoadRemoteMember,
+  watchCreateRemoteMember
 } from './members'
 
 import { watchLoadRemoteStandup } from './standups'
@@ -27,6 +28,7 @@ export default function* rootSaga () {
 
     watchLoadRemoteMembers(),
     watchLoadRemoteMember(),
+    watchCreateRemoteMember(),
 
     watchLoadRemoteStandup()
   ]

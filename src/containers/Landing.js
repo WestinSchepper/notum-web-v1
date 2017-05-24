@@ -27,6 +27,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     createProject: () => {
       dispatch(push('/projects/create'))
+    },
+    createMember: () => {
+      dispatch(push('/members/create'))
     }
   }
 }
@@ -37,7 +40,7 @@ class Landing extends React.Component {
   }
 
   render () {
-    const { projects, members, createProject, children } = this.props
+    const { projects, members, createProject, createMember, children } = this.props
     
     return (
       <div>
@@ -46,7 +49,7 @@ class Landing extends React.Component {
           <Projects projects={projects} />
         </div>
         <div className='member-list'>
-          <h2>Members</h2>
+          <h2>Members <button onClick={createMember}>Add</button></h2>
           <Members members={members} />
         </div>
         {children}

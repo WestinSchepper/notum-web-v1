@@ -6,6 +6,7 @@ import Landing from './containers/Landing'
 import ProjectContainer from './containers/Project'
 import ProjectEditContainer from './containers/ProjectEdit'
 import ProjectCreateContainer from './containers/ProjectCreate'
+import MemberCreateContainer from './containers/MemberCreate'
 
 import MemberContainer from './containers/Member'
 import StandupContainer from './containers/Standup'
@@ -25,8 +26,13 @@ export default (
           <Route path='edit' component={ProjectEditContainer} />
         </Route>
       </Route>
-      <Route path='members/:id'>
-        <IndexRoute component={MemberContainer} />
+      <Route path='members'>
+        <Route path='create' component={Landing}>
+          <IndexRoute component={MemberCreateContainer} />
+        </Route>
+        <Route path=':id'>
+          <IndexRoute component={MemberContainer} />
+        </Route>
       </Route>
       <Route path='standups/:id'>
         <IndexRoute component={StandupContainer} />

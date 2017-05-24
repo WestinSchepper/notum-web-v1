@@ -58,3 +58,30 @@ export function* loadRemoteMember (action) {
 export function* watchLoadRemoteMember () {
   yield takeLatest(memberActions.LOAD_MEMBER, loadRemoteMember)
 }
+
+// Create Member
+function requestCreateMember (body) {
+  return axios.post(`http://localhost:3333/members`, body)
+    .then(response => {
+      const serialized = normalize(response.data, memberSchema)
+
+      return {
+        entities: serialized
+      }
+    })
+    .catch(error => ({ error }))
+}
+
+export function* createRemoteMember (action) {
+  const { entities, error } = yield call(requestCreateMember, action.body)
+
+  if (entities) {
+    yield put(memberActions.createMemberSuccess(entities))
+  } else {
+    yield put(memberActions.createMemberError(error))
+  }
+}
+
+export function* watchCreateRemoteMember () {
+  yield takeLatest(memberActions.CREATE_MEMBER, createRemoteMember)
+}
