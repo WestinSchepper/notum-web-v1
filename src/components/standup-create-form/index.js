@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import isEmpty from 'lodash/isEmpty'
 
-const StandupCreateForm = ({ project, projectMembers, handleSubmit }) => (
+const StandupCreateForm = ({ project, projectMembers, selectedMember, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <h3>
       Project: {project && project.name}
@@ -18,17 +18,17 @@ const StandupCreateForm = ({ project, projectMembers, handleSubmit }) => (
     <p>
       <label htmlFor='did'>did: </label>
       <br/>
-      <Field name='did' component='textarea' rows='8' cols='50' placeholder='What did the member do?' />
+      <Field name='did' component='textarea' rows='8' cols='50' placeholder={`What did ${selectedMember.name || 'the member'} do?`} />
     </p>
     <p>
       <label htmlFor='doing'>doing: </label>
       <br/>
-      <Field name='doing' component='textarea' rows='8' cols='50' placeholder='What is the member doing?' />
+      <Field name='doing' component='textarea' rows='8' cols='50' placeholder={`What is ${selectedMember.name || 'the member'} doing?`} />
     </p>
     <p>
       <label htmlFor='impediments'>impediments: </label>
       <br/>
-      <Field name='impediments' component='textarea' rows='8' cols='50' placeholder='Did the member have any impediments?' />
+      <Field name='impediments' component='textarea' rows='8' cols='50' placeholder={`Did ${selectedMember.name || 'the member'} have any impediments?`} />
     </p>
     <p>
       <button type='submit'>create</button>

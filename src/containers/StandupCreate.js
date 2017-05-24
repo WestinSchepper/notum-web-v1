@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
+import { formValueSelector } from 'redux-form'
 import pick from 'lodash/pick'
 
 import Modal from '../components/modal'
@@ -12,11 +13,15 @@ const mapStateToProps = (state, ownProps) => {
   let project = state.entities.projects[ownProps.params.id] || {}
 
   if (project) {
+    const selector = formValueSelector('standupCreate')
+    
     let projectMembers = pick(state.entities.members, project.members)
+    let selectedMember = projectMembers[selector(state, 'memberId')] || {}
 
     return {
       project,
-      projectMembers
+      projectMembers,
+      selectedMember
     }
   }
 
@@ -48,11 +53,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 class StandupCreateContainer extends React.Component {
   render () {
-    const { project, projectMembers, handleClose, onSubmit } = this.props
+    const { project, projectMembers, selectedMember, handleClose, onSubmit } = this.props
 
     return (
       <Modal title='Create Standup' onClose={handleClose}>
-        <StandupCreateForm project={project} projectMembers={projectMembers} onSubmit={onSubmit} />
+        <StandupCreateForm project={project} projectMembers={projectMembers} selectedMember={selectedMember} onSubmit={onSubmit} />
       </Modal>
     )
   }
