@@ -32,12 +32,29 @@ export default function (state = defaultState, action) {
       return newState
 
     case projectActions.ADD_MEMBER_TO_PROJECT_SUCCEEDED:
-      newState.projects[action.projectId].members.push(action.memberId)
-      newState.members[action.memberId].projects.push(action.projectId)
-
-      return newState
+      return updateMembersAndProjects(newState, action.projectId, action.memberId)
 
     default:
       return state
   }
+}
+
+const updateMembersAndProjects = (newState = {}, projectId, memberId) => {
+  newState.members[memberId] = {
+    ...newState.members[memberId],
+    projects: [
+      ...newState.members[memberId].projects || [],
+      projectId
+    ]
+  }
+
+  newState.projects[projectId] = {
+    ...newState.projects[projectId],
+    members: [
+      ...newState.projects[projectId].members || [],
+      memberId
+    ]
+  }
+  
+  return newState
 }
