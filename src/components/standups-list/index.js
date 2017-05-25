@@ -12,12 +12,17 @@ class StandupsList extends React.Component {
       </Link>
     )
   }
-  
+
+  configureEmptyComponent () {
+    return <p>There are no standups</p>
+  }
+
   render () {
     return (
       <List
         items={this.props.standups}
         configureItem={this.configureStandupItem.bind(this)}
+        configureEmptyComponent={this.configureEmptyComponent.bind(this)}
       />
     )
   }
