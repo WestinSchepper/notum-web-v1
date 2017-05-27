@@ -1,7 +1,6 @@
 import React from 'react'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import values from 'lodash/values'
 
 import Members from '../components/members-list'
 import Projects from '../components/projects-list'
@@ -9,9 +8,11 @@ import Projects from '../components/projects-list'
 import { projectsActions } from '../actions/projects'
 import { membersActions } from '../actions/members'
 
+import { getProjects, getMembers } from '../selectors'
+
 const mapStateToProps = (state, ownProps) => {
-  let projects = values(state.entities.projects) || []
-  let members = values(state.entities.members) || []
+  let projects = getProjects(state)
+  let members = getMembers(state)
 
   return {
     projects,
@@ -41,7 +42,7 @@ class Landing extends React.Component {
 
   render () {
     const { projects, members, createProject, createMember, children } = this.props
-    
+
     return (
       <div>
         <div className='project-list'>

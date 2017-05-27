@@ -11,12 +11,14 @@ import Alert from '../components/alert'
 import { memberActions } from '../actions/members'
 import { projectsActions } from '../actions/projects'
 
+import { getProjects } from '../selectors'
+
 const mapStateToProps = (state, ownProps) => {
   let member = state.entities.members[ownProps.params.id] || {}
 
   if (member) {
     let memberProjects = values(pick(state.entities.projects, member.projects))
-    let projects = state.entities.projects
+    let projects = getProjects(state)
 
     return {
       member,
@@ -73,13 +75,13 @@ class MemberEditContainer extends React.Component {
       alert: false
     })
   }
-  
+
   showAlert () {
     this.setState({
       alert: true
     })
   }
-  
+
   deleteConfirmed () {
     this.props.handleDelete()
     this.hideAlert()

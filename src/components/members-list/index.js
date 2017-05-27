@@ -1,25 +1,21 @@
 import React, { PropTypes } from 'react'
-import Member from '../member-item'
+import MemberItem from '../member-item'
 import { Link } from 'react-router'
 
+import List from '../list'
+
 const MembersList = ({members}) => (
-  <ul>
-    {(members.length > 0)
-      ? members.map((member) =>
-        (
-          <li key={member.id}>
-            <Link to={`/members/${member.id}`}>
-              <Member {...member} />
-            </Link>
-          </li>
-        ))
-      : <p>No members we're found</p>
-    }
-  </ul>
+  <List items={members} configureItem={
+    (member) => (
+      <Link to={`/members/${member.id}`}>
+        <MemberItem {...member} />
+      </Link>
+    )
+  } />
 )
 
 MembersList.propTypes = {
-  members: PropTypes.array
+  members: PropTypes.object.isRequired
 }
 
 export default MembersList

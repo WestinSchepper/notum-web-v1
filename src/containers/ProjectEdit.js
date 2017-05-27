@@ -11,12 +11,15 @@ import Alert from '../components/alert'
 import { projectActions } from '../actions/projects'
 import { membersActions } from '../actions/members'
 
+import { getMembers } from '../selectors'
+
+
 const mapStateToProps = (state, ownProps) => {
   let project = state.entities.projects[ownProps.params.id] || {}
 
   if (project) {
     let projectMembers = values(pick(state.entities.members, project.members))
-    let members = state.entities.members
+    let members = getMembers(state)
 
     return {
       project,
@@ -56,12 +59,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class ProjectEditContainer extends React.Component {
   constructor () {
     super()
-    
+
     this.state = {
       alert: false
     }
   }
-  
+
   componentWillMount () {
     this.props.loadData()
   }
@@ -71,13 +74,13 @@ class ProjectEditContainer extends React.Component {
       alert: false
     })
   }
-  
+
   showAlert () {
     this.setState({
       alert: true
     })
   }
-  
+
   deleteConfirmed () {
     this.props.handleDelete()
     this.hideAlert()

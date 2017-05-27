@@ -2,24 +2,20 @@ import React, { PropTypes } from 'react'
 import ProjectItem from '../project-item'
 import { Link } from 'react-router'
 
+import List from '../list'
+
 const ProjectList = ({projects}) => (
-  <ul>
-    {(projects.length > 0)
-      ? projects.map((project) =>
-        (
-          <li key={project.id}>
-            <Link to={`/projects/${project.id}`}>
-              <ProjectItem {...project} />
-            </Link>
-          </li>
-        ))
-      : <p>No projects we're found</p>
-    }
-  </ul>
+  <List items={projects} configureItem={
+    (project) => (
+      <Link to={`/projects/${project.id}`}>
+        <ProjectItem {...project} />
+      </Link>
+    )
+  } />
 )
 
 ProjectList.propTypes = {
-  projects: PropTypes.array
+  projects: PropTypes.object.isRequired
 }
 
 export default ProjectList

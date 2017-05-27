@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import pick from 'lodash/pick'
-import values from 'lodash/values'
 
 import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
@@ -13,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   let member = state.entities.members[ownProps.params.id] || {}
 
   if (member) {
-    let projects = values(pick(state.entities.projects, member.projects))
+    let projects = pick(state.entities.projects, member.projects)
     let standups = pick(state.entities.standups, member.standups)
 
     return {
