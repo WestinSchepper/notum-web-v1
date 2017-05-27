@@ -14,3 +14,9 @@ const getMember = (state, memberId) => state.entities.members[memberId] || {}
 export const makeGetMember = () => (
   createSelector([getMember], (member) => member)
 )
+
+const getStandup = (state, standupId) => state.entities.standups[standupId] || {}
+
+export const makeGetStandup = () => (
+  createSelector([getStandup], (standup) => standup)
+)
