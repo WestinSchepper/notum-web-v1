@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import pick from 'lodash/pick'
 
 import Project from '../components/project-detail'
 import Members from '../components/members-list'
@@ -10,7 +9,12 @@ import Standups from '../components/standups-list'
 import { projectActions } from '../actions/projects'
 import { membersActions } from '../actions/members'
 
-import { getMembers, makeGetProjectMembers, makeGetProject } from '../selectors'
+import {
+  getMembers,
+  makeGetProjectMembers,
+  makeGetProject,
+  makeGetProjectStandups
+} from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const getProject = makeGetProject()
@@ -19,8 +23,8 @@ const mapStateToProps = (state, ownProps) => {
   if (project) {
     const getProjectMembers = makeGetProjectMembers()
     const projectMembers = getProjectMembers(state, project.id)
-
-    let standups = pick(state.entities.standups, project.standups)
+    const getProjectStandups = makeGetProjectStandups()
+    const standups = getProjectStandups(state, project.id)
     let members = getMembers(state)
 
     return {

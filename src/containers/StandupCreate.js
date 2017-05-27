@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
 import { formValueSelector } from 'redux-form'
-import pick from 'lodash/pick'
 
 import Modal from '../components/modal'
 import StandupCreateForm from '../components/standup-create-form'

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import pick from 'lodash/pick'
 
 import Member from '../components/member-detail'
 import Projects from '../components/projects-list'
