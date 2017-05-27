@@ -3,6 +3,7 @@ import pick from 'lodash/pick'
 
 export const getProjects = state => state.entities.projects || {}
 export const getMembers = state => state.entities.members || {}
+export const getStandups = state => state.entities.standups || {}
 
 const getProject = (state, projectId) => state.entities.projects[projectId] || {}
 
@@ -32,6 +33,15 @@ const getMemberProjects = createSelector(
 
 export const makeGetMemberProjects = () => {
   return createSelector([getMemberProjects], (memberProjects) => memberProjects)
+}
+
+const getMemberStandups = createSelector(
+  [getMember, getStandups],
+  (member, standups) => pick(standups, member.standups)
+)
+
+export const makeGetMemberStandups = () => {
+  return createSelector([getMemberStandups], (memberStandups) => memberStandups)
 }
 
 const getStandup = (state, standupId) => state.entities.standups[standupId] || {}
