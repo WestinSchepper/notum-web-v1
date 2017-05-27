@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { replace } from 'react-router-redux'
-import pick from 'lodash/pick'
-import values from 'lodash/values'
 
 import MemberEdit from '../components/member-edit'
 import ProjectListEditContainer from './ProjectListEdit'
@@ -11,14 +9,15 @@ import Alert from '../components/alert'
 import { memberActions } from '../actions/members'
 import { projectsActions } from '../actions/projects'
 
-import { getProjects, makeGetMember } from '../selectors'
+import { getProjects, makeGetMember, makeGetMemberProjects } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const getMember = makeGetMember()
   const member = getMember(state, ownProps.params.id)
 
   if (member) {
-    let memberProjects = values(pick(state.entities.projects, member.projects))
+    const getMemberProjects = makeGetMemberProjects()
+    const memberProjects = getMemberProjects(state, member.id)
     let projects = getProjects(state)
 
     return {

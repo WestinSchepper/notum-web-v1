@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class ProjectListEditContainer extends React.Component {
   configureAccessory (project) {
     const { memberProjects, onDelete, onAdd } = this.props
-    const projectBelongsToMember = memberProjects.find((memberProject) => (memberProject.id === project.id))
+    let projectBelongsToMember = !!memberProjects[project.id]
     let accessory = null
 
     if (projectBelongsToMember) {

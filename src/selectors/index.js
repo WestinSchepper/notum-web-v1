@@ -25,6 +25,15 @@ export const makeGetMember = () => (
   createSelector([getMember], (member) => member)
 )
 
+const getMemberProjects = createSelector(
+  [getMember, getProjects],
+  (member, projects) => pick(projects, member.projects)
+)
+
+export const makeGetMemberProjects = () => {
+  return createSelector([getMemberProjects], (memberProjects) => memberProjects)
+}
+
 const getStandup = (state, standupId) => state.entities.standups[standupId] || {}
 
 export const makeGetStandup = () => (
