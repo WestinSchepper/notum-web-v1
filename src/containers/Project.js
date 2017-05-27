@@ -10,17 +10,18 @@ import Standups from '../components/standups-list'
 import { projectActions } from '../actions/projects'
 import { membersActions } from '../actions/members'
 
-import { getMembers, makeGetProject } from '../selectors'
+import { getMembers, makeGetProjectMembers, makeGetProject } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   const getProject = makeGetProject()
   const project = getProject(state, ownProps.params.id)
 
   if (project) {
-    let projectMembers = pick(state.entities.members, project.members)
+    const getProjectMembers = makeGetProjectMembers()
+    const projectMembers = getProjectMembers(state, project.id)
+
     let standups = pick(state.entities.standups, project.standups)
     let members = getMembers(state)
-
 
     return {
       project,
