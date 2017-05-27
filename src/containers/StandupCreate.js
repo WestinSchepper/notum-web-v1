@@ -9,12 +9,15 @@ import StandupCreateForm from '../components/standup-create-form'
 
 import { standupActions } from '../actions/standups'
 
+import { makeGetProject } from '../selectors'
+
 const mapStateToProps = (state, ownProps) => {
-  let project = state.entities.projects[ownProps.params.id] || {}
+  const getProject = makeGetProject()
+  const project = getProject(state, ownProps.params.id)
 
   if (project) {
     const selector = formValueSelector('standupCreate')
-    
+
     let projectMembers = pick(state.entities.members, project.members)
     let selectedMember = projectMembers[selector(state, 'memberId')] || {}
 
