@@ -8,3 +8,9 @@ const getProject = (state, projectId) => state.entities.projects[projectId] || {
 export const makeGetProject = () => (
   createSelector([getProject], (project) => project)
 )
+
+const getMember = (state, memberId) => state.entities.members[memberId] || {}
+
+export const makeGetMember = () => (
+  createSelector([getMember], (member) => member)
+)

@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import Standup from '../components/standup-detail'
 import { standupActions } from '../actions/standups'
 
-import { makeGetProject } from '../selectors'
+import { makeGetProject, makeGetMember } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
   let standup = state.entities.standups[ownProps.params.id] || {}
-  let member = state.entities.members[standup.member] || {}
+  const getMember = makeGetMember()
+  const member = getMember(state, standup.member)
 
   const getProject = makeGetProject()
   const project = getProject(state, standup.project)

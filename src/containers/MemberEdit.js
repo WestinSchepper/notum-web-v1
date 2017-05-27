@@ -11,10 +11,11 @@ import Alert from '../components/alert'
 import { memberActions } from '../actions/members'
 import { projectsActions } from '../actions/projects'
 
-import { getProjects } from '../selectors'
+import { getProjects, makeGetMember } from '../selectors'
 
 const mapStateToProps = (state, ownProps) => {
-  let member = state.entities.members[ownProps.params.id] || {}
+  const getMember = makeGetMember()
+  const member = getMember(state, ownProps.params.id)
 
   if (member) {
     let memberProjects = values(pick(state.entities.projects, member.projects))

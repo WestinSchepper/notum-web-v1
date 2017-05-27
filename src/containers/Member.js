@@ -8,8 +8,11 @@ import Standups from '../components/standups-list'
 
 import { memberActions } from '../actions/members'
 
+import { makeGetMember } from '../selectors'
+
 const mapStateToProps = (state, ownProps) => {
-  let member = state.entities.members[ownProps.params.id] || {}
+  const getMember = makeGetMember()
+  const member = getMember(state, ownProps.params.id)
 
   if (member) {
     let projects = pick(state.entities.projects, member.projects)
