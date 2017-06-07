@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { replace } from 'react-router-redux'
 
 import MemberEdit from '../components/member-edit'
 import ProjectListEditContainer from './ProjectListEdit'
@@ -42,7 +41,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     handleDelete: () => {
       dispatch(memberActions.removeMember(ownProps.params.id))
-      dispatch(replace('/'))
     },
     onSubmit: (data) => {
       const formattedData = {

@@ -1,4 +1,5 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
+import { replace } from 'react-router-redux'
 import { normalize } from 'normalizr'
 import axios from 'axios'
 
@@ -77,6 +78,7 @@ export function* updateRemoteMember (action) {
 
   if (entities) {
     yield put(memberActions.updateMemberSuccess(entities))
+    yield put(replace(`/members/${action.id}`))
   } else {
     yield put(memberActions.updateMemberError(error))
   }
@@ -104,6 +106,7 @@ export function* createRemoteMember (action) {
 
   if (entities) {
     yield put(memberActions.createMemberSuccess(entities))
+    yield put(replace('/'))
   } else {
     yield put(memberActions.createMemberError(error))
   }
@@ -129,6 +132,7 @@ export function* removeRemoteMember (action) {
 
   if (id) {
     yield put(memberActions.removeMemberSuccess(id))
+    yield put(replace('/members'))
   } else {
     yield put(memberActions.removeMemberError(error))
   }
