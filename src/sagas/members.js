@@ -132,7 +132,7 @@ export function* removeRemoteMember (action) {
 
   if (id) {
     yield put(memberActions.removeMemberSuccess(id))
-    yield put(replace('/members'))
+    yield put(replace('/'))
   } else {
     yield put(memberActions.removeMemberError(error))
   }
