@@ -1,4 +1,5 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
+import { replace } from 'react-router-redux'
 import { normalize } from 'normalizr'
 import axios from 'axios'
 
@@ -77,6 +78,7 @@ export function* updateRemoteProject (action) {
 
   if (entities) {
     yield put(projectActions.updateProjectSuccess(entities))
+    yield put(replace(`/projects/${action.id}`))
   } else {
     yield put(projectActions.updateProjectError(error))
   }
@@ -104,6 +106,7 @@ export function* createRemoteProject (action) {
 
   if (entities) {
     yield put(projectActions.createProjectSuccess(entities))
+    yield put(replace('/'))
   } else {
     yield put(projectActions.createProjectError(error))
   }
@@ -129,6 +132,7 @@ export function* removeRemoteProject (action) {
 
   if (id) {
     yield put(projectActions.removeProjectSuccess(id))
+    yield put(replace('/'))
   } else {
     yield put(projectActions.removeProjectError(error))
   }
