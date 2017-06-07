@@ -8,7 +8,12 @@ class StandupsList extends React.Component {
   configureStandupItem (standup) {
     return (
       <Link to={`/standups/${standup.id}`}>
-        <Standup {...standup} project={this.props.project} member={this.props.members[standup.member_id]} />
+        <Standup
+          {...standup}
+          project={this.props.project}
+          member={this.props.members[standup.member_id]}
+          createdAt={standup.created_at}
+        />
       </Link>
     )
   }
