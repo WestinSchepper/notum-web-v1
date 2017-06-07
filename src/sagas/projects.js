@@ -5,19 +5,13 @@ import axios from 'axios'
 
 import { projectsActions, projectActions } from '../actions/projects'
 import { projectListSchema, projectSchema } from '../schemas'
+import { fetchResources } from './factories/resources'
 
 // Fetch Projects
-function requestProjects () {
-  return axios.get('http://localhost:3333/projects')
-    .then(response => {
-      const serialized = normalize(response.data, projectListSchema)
-
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+const requestProjects = fetchResources({
+  resource: 'projects',
+  schema: projectListSchema
+})
 
 export function* loadRemoteProjects () {
   const { entities, error } = yield call(requestProjects)

@@ -5,19 +5,13 @@ import axios from 'axios'
 
 import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
+import { fetchResources } from './factories/resources'
 
 // Fetch Members
-function requestMembers () {
-  return axios.get('http://localhost:3333/members')
-    .then(response => {
-      const serialized = normalize(response.data, memberListSchema)
-
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+const requestMembers = fetchResources({
+  resource: 'members',
+  schema: memberListSchema
+})
 
 export function* loadRemoteMembers () {
   const { entities, error } = yield call(requestMembers)
