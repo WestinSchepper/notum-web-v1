@@ -1,4 +1,5 @@
 import { put, call, takeLatest } from 'redux-saga/effects'
+import { replace } from 'react-router-redux'
 import { normalize } from 'normalizr'
 import axios from 'axios'
 
@@ -50,6 +51,7 @@ export function* createRemoteStandup (action) {
 
   if (entities) {
     yield put(standupActions.createStandupSuccess(entities))
+    yield put(replace(`/projects/${action.body.standup.project_id}`))
   } else {
     yield put(standupActions.createStandupError(error))
   }
