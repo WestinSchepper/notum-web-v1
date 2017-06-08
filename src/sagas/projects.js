@@ -6,6 +6,7 @@ import axios from 'axios'
 import { projectsActions, projectActions } from '../actions/projects'
 import { projectListSchema, projectSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
+import { fetchResource } from './factories/resource'
 
 // Fetch Projects
 const requestProjects = fetchResources({
@@ -28,17 +29,12 @@ export function* watchLoadRemoteProjects () {
 }
 
 // Fetch Project
-function requestProject (id) {
-  return axios.get(`http://localhost:3333/projects/${id}`)
-    .then(response => {
-      const serialized = normalize(response.data, projectSchema)
-
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+// TODO: Find better way to handle this, I don't like the currying
+const requestProject = (id) => fetchResource({
+  id,
+  resource: 'projects',
+  schema: projectSchema
+})()
 
 export function* loadRemoteProject (action) {
   const { entities, error } = yield call(requestProject, action.id)
