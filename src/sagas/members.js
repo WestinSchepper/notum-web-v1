@@ -18,8 +18,8 @@ const requestMembers = fetchResources({
 
 const loadRemoteMembers = makeSaga({
   request: requestMembers,
-  successHandler: membersActions.loadMembersSuccess,
-  errorHandler: membersActions.loadMembersError
+  successAction: membersActions.loadMembersSuccess,
+  errorAction: membersActions.loadMembersError
 })
 
 export const watchLoadRemoteMembers = makeSagaWatcher({

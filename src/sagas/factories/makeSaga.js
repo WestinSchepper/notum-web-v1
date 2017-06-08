@@ -1,13 +1,13 @@
 import { put, call } from 'redux-saga/effects'
 
-export function makeSaga ({ request, successHandler, errorHandler }) {
+export function makeSaga ({ request, successAction, errorAction }) {
   return function* () {
     const { entities, error } = yield call(request)
 
     if (entities) {
-      yield put(successHandler(entities))
+      yield put(successAction(entities))
     } else {
-      yield put(errorHandler(error))
+      yield put(errorAction(error))
     }
   }
 }

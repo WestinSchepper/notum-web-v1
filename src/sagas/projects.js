@@ -18,8 +18,8 @@ const requestProjects = fetchResources({
 
 const loadRemoteProjects = makeSaga({
   request: requestProjects,
-  successHandler: projectsActions.loadProjectsSuccess,
-  errorHandler: projectsActions.loadProjectsError
+  successAction: projectsActions.loadProjectsSuccess,
+  errorAction: projectsActions.loadProjectsError
 })
 
 export const watchLoadRemoteProjects = makeSagaWatcher({
