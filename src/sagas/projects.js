@@ -7,6 +7,7 @@ import { projectsActions, projectActions } from '../actions/projects'
 import { projectListSchema, projectSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
 import { fetchResource } from './factories/resource'
+import { makeSaga } from './factories/makeSaga'
 
 // Fetch Projects
 const requestProjects = fetchResources({
@@ -14,15 +15,11 @@ const requestProjects = fetchResources({
   schema: projectListSchema
 })
 
-export function* loadRemoteProjects () {
-  const { entities, error } = yield call(requestProjects)
-
-  if (entities) {
-    yield put(projectsActions.loadProjectsSuccess(entities))
-  } else {
-    yield put(projectsActions.loadProjectsError(error))
-  }
-}
+const loadRemoteProjects = makeSaga({
+  request: requestProjects,
+  successHandler: projectsActions.loadProjectsSuccess,
+  errorHandler: projectsActions.loadProjectsError
+})
 
 export function* watchLoadRemoteProjects () {
   yield takeLatest(projectsActions.LOAD_PROJECTS, loadRemoteProjects)
