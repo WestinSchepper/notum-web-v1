@@ -7,6 +7,8 @@ import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
 import { fetchResource } from './factories/resource'
+import { makeSaga } from './factories/makeSaga'
+import { makeSagaWatcher } from './factories/makeSagaWatcher'
 
 // Fetch Members
 const requestMembers = fetchResources({
@@ -14,19 +16,16 @@ const requestMembers = fetchResources({
   schema: memberListSchema
 })
 
-export function* loadRemoteMembers () {
-  const { entities, error } = yield call(requestMembers)
+const loadRemoteMembers = makeSaga({
+  request: requestMembers,
+  successHandler: membersActions.loadMembersSuccess,
+  errorHandler: membersActions.loadMembersError
+})
 
-  if (entities) {
-    yield put(membersActions.loadMembersSuccess(entities))
-  } else {
-    yield put(membersActions.loadMembersError(error))
-  }
-}
-
-export function* watchLoadRemoteMembers () {
-  yield takeLatest(membersActions.LOAD_MEMBERS, loadRemoteMembers)
-}
+export const watchLoadRemoteMembers = makeSagaWatcher({
+  action: membersActions.LOAD_MEMBERS,
+  saga: loadRemoteMembers
+})
 
 // Fetch Member
 // TODO: Find better way to handle this, I don't like the currying
