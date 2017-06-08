@@ -14,3 +14,15 @@ export function fetchResource ({ id, resource, schema }) {
     })
     .catch(error => ({ error }))
 }
+
+export function updateResource ({ id, body, resource, schema }) {
+  return () => axios.put(`${BASE_URL}/${resource}/${id}`, body)
+    .then(response => {
+      const serialized = normalize(response.data, schema)
+
+      return {
+        entities: serialized
+      }
+    })
+    .catch(error => ({ error }))
+}

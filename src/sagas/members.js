@@ -6,7 +6,7 @@ import axios from 'axios'
 import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
-import { fetchResource } from './factories/resource'
+import { fetchResource, updateResource } from './factories/resource'
 import { makeSaga } from './factories/makeSaga'
 import { makeSagaWatcher } from './factories/makeSagaWatcher'
 
@@ -49,32 +49,29 @@ export const watchLoadRemoteMember = makeSagaWatcher({
 })
 
 // Update Member
-function requestUpdateMember (id, body) {
-  return axios.put(`http://localhost:3333/members/${id}`, body)
-    .then(response => {
-      const serialized = normalize(response.data, memberSchema)
+// TODO: Find better way to handle this, I don't like the currying
+const requestUpdateMember = (id, body) => updateResource({
+  id,
+  body,
+  resource: 'members',
+  schema: memberSchema
+})()
 
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+// TODO: Find better way to handle this, I don't like the currying
+const updateRemoteMember = (action) => makeSaga({
+  request: requestUpdateMember,
+  requestParams: [action.id, action.body],
+  successActions: [
+    memberActions.updateMemberSuccess,
+    replace(`/members/${action.id}`)
+  ],
+  errorAction: memberActions.updateMemberError
+})()
 
-export function* updateRemoteMember (action) {
-  const { entities, error } = yield call(requestUpdateMember, action.id, action.body)
-
-  if (entities) {
-    yield put(memberActions.updateMemberSuccess(entities))
-    yield put(replace(`/members/${action.id}`))
-  } else {
-    yield put(memberActions.updateMemberError(error))
-  }
-}
-
-export function* watchUpdateRemoteMember () {
-  yield takeLatest(memberActions.UPDATE_MEMBER, updateRemoteMember)
-}
+export const watchUpdateRemoteMember = makeSagaWatcher({
+  action: memberActions.UPDATE_MEMBER,
+  saga: updateRemoteMember
+})
 
 // Create Member
 function requestCreateMember (body) {
