@@ -35,19 +35,18 @@ const requestMember = (id) => fetchResource({
   schema: memberSchema
 })()
 
-export function* loadRemoteMember (action) {
-  const { entities, error } = yield call(requestMember, action.id)
+// TODO: Find better way to handle this, I don't like the currying
+const loadRemoteMember = (action) => makeSaga({
+  request: requestMember,
+  requestParams: [action.id],
+  successAction: memberActions.loadMemberSuccess,
+  errorAction: memberActions.loadMemberError
+})()
 
-  if (entities) {
-    yield put(memberActions.loadMemberSuccess(entities))
-  } else {
-    yield put(memberActions.loadMemberError(error))
-  }
-}
-
-export function* watchLoadRemoteMember () {
-  yield takeLatest(memberActions.LOAD_MEMBER, loadRemoteMember)
-}
+export const watchLoadRemoteMember = makeSagaWatcher({
+  action: memberActions.LOAD_MEMBER,
+  saga: loadRemoteMember
+})
 
 // Update Member
 function requestUpdateMember (id, body) {
