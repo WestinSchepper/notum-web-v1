@@ -5,19 +5,15 @@ import axios from 'axios'
 
 import { standupActions } from '../actions/standups'
 import { standupSchema } from '../schemas'
+import { fetchResource } from './factories/resource'
 
 // Fetch Standup
-function requestStandup (id) {
-  return axios.get(`http://localhost:3333/standups/${id}`)
-    .then(response => {
-      const serialized = normalize(response.data, standupSchema)
-
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+// TODO: Find better way to handle this, I don't like the currying
+const requestStandup = (id) => fetchResource({
+  id,
+  resource: 'standups',
+  schema: standupSchema
+})()
 
 export function* loadRemoteStandup (action) {
   const { entities, error } = yield call(requestStandup, action.id)
