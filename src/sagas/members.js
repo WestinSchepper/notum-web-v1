@@ -6,6 +6,7 @@ import axios from 'axios'
 import { membersActions, memberActions } from '../actions/members'
 import { memberListSchema, memberSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
+import { fetchResource } from './factories/resource'
 
 // Fetch Members
 const requestMembers = fetchResources({
@@ -28,17 +29,12 @@ export function* watchLoadRemoteMembers () {
 }
 
 // Fetch Member
-function requestMember (id) {
-  return axios.get(`http://localhost:3333/members/${id}`)
-    .then(response => {
-      const serialized = normalize(response.data, memberSchema)
-
-      return {
-        entities: serialized
-      }
-    })
-    .catch(error => ({ error }))
-}
+// TODO: Find better way to handle this, I don't like the currying
+const requestMember = (id) => fetchResource({
+  id,
+  resource: 'members',
+  schema: memberSchema
+})()
 
 export function* loadRemoteMember (action) {
   const { entities, error } = yield call(requestMember, action.id)
