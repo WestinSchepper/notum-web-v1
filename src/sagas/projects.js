@@ -8,6 +8,7 @@ import { projectListSchema, projectSchema } from '../schemas'
 import { fetchResources } from './factories/resources'
 import { fetchResource } from './factories/resource'
 import { makeSaga } from './factories/makeSaga'
+import { makeSagaWatcher } from './factories/makeSagaWatcher'
 
 // Fetch Projects
 const requestProjects = fetchResources({
@@ -21,9 +22,10 @@ const loadRemoteProjects = makeSaga({
   errorHandler: projectsActions.loadProjectsError
 })
 
-export function* watchLoadRemoteProjects () {
-  yield takeLatest(projectsActions.LOAD_PROJECTS, loadRemoteProjects)
-}
+export const watchLoadRemoteProjects = makeSagaWatcher({
+  action: projectsActions.LOAD_PROJECTS,
+  saga: loadRemoteProjects
+})
 
 // Fetch Project
 // TODO: Find better way to handle this, I don't like the currying
