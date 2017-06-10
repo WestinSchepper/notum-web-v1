@@ -1,12 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
+import FontAwesome from 'react-fontawesome'
 
-export default ({children}) => (
+export default ({ children }) => (
   <div>
-    <Link to='/'>
-      <h1>App</h1>
-    </Link>
-    <hr/>
+    <header>
+      <Link to='/'>
+        <FontAwesome
+          name='home'
+          size="2x"
+          style={{ color: '#000000' }}
+        />
+      </Link>
+    </header>
     {children}
   </div>
 );
